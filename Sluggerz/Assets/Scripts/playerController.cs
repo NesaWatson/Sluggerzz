@@ -1,18 +1,184 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, iDamage, iPhysics
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("----- Components -----")]
+    [SerializeField] CharacterController controller;
+
+    [Header("----- Player Stats -----")]
+    [Range(1, 10)][SerializeField] int HP;
+    [Range(3, 10)][SerializeField] float playerSpeed;
+    [Range(8, 25)][SerializeField] float jumpHeight;
+    [Range(1, 3)][SerializeField] int jumpsMax;
+    [Range(-35, -10)][SerializeField] float gravityValue;
+    [Range(1, 10)][SerializeField] int pushBackResolve;
+
+    [Header("----- Weapon Stats -----")]
+    //[SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    [SerializeField] GameObject weaponModel;
+    [SerializeField] float attackRate;
+    [SerializeField] int attackDamage;
+    [SerializeField] int attackDistance;
+    //[SerializeField] GameObject wall; 
+
+    private Vector3 playerVelocity;
+    private bool groundedPlayer;
+    private Vector3 move; 
+    private Vector3 pushBack;
+    private int jumpedTimes;
+    private bool isAttacking;
+    int HPOrig;
+    int selectedWeapon;
+
+    private void Start()
     {
-        
+        HPOrig = HP;
+        spawnPlayer();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * attackDistance);
+
+        movement();
+        //selectWeapon();
+
+        if (!gameManager.instance.isPaused && Input.GetButton("attack") && !isAttacking)
+        {
+            StartCoroutine(attack());
+        }
     }
+
+    void movement()
+    {
+        if (pushBack.magnitude > 0.01f)
+        {
+            //pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
+            pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
+            pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
+            pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
+        }
+
+        groundedPlayer = controller.isGrounded;
+
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            jumpedTimes = 0;
+            playerVelocity.y = 0f;
+        }
+
+        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        move = Input.GetAxis("Horizontal") * transform.right +
+            Input.GetAxis("Vertical") * transform.forward;
+        controller.Move(move * Time.deltaTime * playerSpeed);
+
+        if (move != Vector3.zero)
+        {
+            gameObject.transform.forward = move;
+        }
+
+        // Changes the height position of the player..
+        if (Input.GetButtonDown("Jump") && jumpedTimes < jumpsMax)
+        {
+            jumpedTimes++;
+            playerVelocity.y = jumpHeight;
+        }
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move((playerVelocity + pushBack) * Time.deltaTime);
+    }
+    IEnumerator attack()
+    {
+        //if (gunList[selectedWeapon].ammoCurr > 0)
+        //{
+            isAttacking = true;
+            //gunList[selectedWeapon].ammoCurr--;
+
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, attackDistance))
+            {
+                //Instantiate(wall, hit.point, transform.rotation);
+                iDamage damageable = hit.collider.GetComponent<iDamage>();
+                //Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
+
+                if (damageable != null && hit.transform != transform)
+                {
+                    damageable.takeDamage(attackDamage);
+                }
+            }
+        //}
+        yield return new WaitForSeconds(attackRate);
+        isAttacking = false;
+    }
+    public void physics(Vector3 dir)
+    {
+        pushBack += dir;
+    }
+    public void giveHP(int amount)
+    {
+        HP += amount;
+        //then add function in button function
+    }
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        StartCoroutine(gameManager.instance.playerFlashDamage());
+        updatePlayerUI();
+
+        if (HP <= 0)
+        {
+            gameManager.instance.youLose();
+        }
+    }
+    public void spawnPlayer()
+    {
+        HP = HPOrig;
+        updatePlayerUI();
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+    }
+    public void updatePlayerUI()
+    {
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+    }
+    //public void weaponPickup(weaponStats weapon)
+    //{
+    //    weaponList.Add(weapon);
+
+    //    attackDamage = gun.attackDamage;
+    //    attackDistance = weapon.shootDistance;
+    //    attackRate = weapon.attackRate;
+
+    //    weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
+    //    weaponModel.GetComponent<Renderer>().sharedMaterial = weapon.model.GetComponent<Renderer>().sharedMaterial;
+
+    //    selectedWeapon = weaponList.Count - 1;
+    //}
+    //void selectWeapon()
+    //{
+    //    if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+    //    {
+    //        selectedWeapon++;
+    //        changeWeapon();
+    //    }
+    //    else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+    //    {
+    //        selectedWeapon--;
+    //        changeWeapon();
+    //    }
+    //}
+    //void changeWeapon()
+    //{
+
+    //    attackDamage = weaponist[selectedWeapon].attackDamage;
+    //    attackDistance = weaponList[selectedWeapon].attackDistance;
+    //    attackRate = ListWeapon[selectedWeapon].attackRate;
+
+    //    weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+    //    weaponModel.GetComponent<Renderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<Renderer>().sharedMaterial;
+    //}
 }
