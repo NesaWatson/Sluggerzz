@@ -11,7 +11,7 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     [SerializeField] Animator anim;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
-    [SerializeField] Collider hitBox;
+    //[SerializeField] Collider hitBox;
     //[SerializeField] Collider swordCol;
 
     [Header("----- Enemy Stats -----")]
@@ -26,11 +26,11 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     [SerializeField] float shootRate;
     [SerializeField] int shootAngle;
     [SerializeField] GameObject bullet;
-    // [SerializeField] int speed;
+    [SerializeField] int speed;
 
     //public spawner whereISpawned;
 
-    //[SerializeField] GameObject player;
+    [SerializeField] GameObject player;
     Vector3 playerDir;
     Vector3 pushBack;
     bool playerInRange;
@@ -44,14 +44,12 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     void Start()
     {
         // moves enemy
-        //player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         //use a singleton to control multiple objects in the game
         //see gameManager.cs
         startingPos = transform.position;
-        stoppingDistOrig = agent.stoppingDistance; // if player is in sight enemy moves towards player.. if not insight moves to last known position of player
-        speedOrig = agent.speed;
-
+        stoppingDistOrig = agent.stoppingDistance; 
     }
 
     void Update()
@@ -76,7 +74,7 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     }
     IEnumerator roam()
     {
-        if (agent.remainingDistance < 0.05f && !destinationChoosen) //checks if enemy is at destination
+        if (agent.remainingDistance < 0.05f && !destinationChoosen) 
         {
             destinationChoosen = true;
             agent.stoppingDistance = 0;
@@ -139,15 +137,17 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     {
         HP -= amount;
         //hitBoxOff();
-        StartCoroutine(stopMoving());
+        //StartCoroutine(stopMoving());
+
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            hitBox.enabled = false;
+            //hitBox.enabled = false;
             agent.enabled = false;
-            anim.SetBool("Dead", true); // enables death animation
+            anim.SetBool("Dead", true);
             gameManager.instance.updateGameGoal(-1);
+            StopAllCoroutines();
             //if (whereISpawned != null)
             //{
             //    whereISpawned.heyIDied();
@@ -155,6 +155,11 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
         }
         else
         {
+            Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
+            Quaternion newRotation = Quaternion.LookRotation(playerDirection);
+            transform.rotation = newRotation;
+            agent.SetDestination(gameManager.instance.player.transform.position);
+
             anim.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             agent.SetDestination(gameManager.instance.player.transform.position); // moves enemy to player if shot

@@ -15,7 +15,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
     [Range(-35, -10)][SerializeField] float gravityValue;
-    [Range(1, 10)][SerializeField] int pushBackResolve;
+    //[Range(1, 10)][SerializeField] int pushBackResolve;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -27,7 +27,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Vector3 move; 
-    private Vector3 pushBack;
+    //private Vector3 pushBack;
     private int jumpedTimes;
     private bool isAttacking;
     int HPOrig;
@@ -54,12 +54,12 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
 
     void movement()
     {
-        if (pushBack.magnitude > 0.01f)
-        {
-            pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
-            pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
-            pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
-        }
+        //if (pushBack.magnitude > 0.01f)
+        //{
+        //    pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
+        //    pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
+        //    pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
+        //}
 
         groundedPlayer = controller.isGrounded;
 
@@ -84,7 +84,9 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
             playerVelocity.y = jumpHeight;
         }
         playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move((playerVelocity + pushBack) * Time.deltaTime);
+        //controller.Move((playerVelocity + pushBack) * Time.deltaTime);
+
+        //pushBack = Vector3.zero;
     }
     IEnumerator attack()
     {
@@ -100,10 +102,11 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
                 iDamage damageable = hit.collider.GetComponent<iDamage>();
                 Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
 
-                if (damageable != null && hit.transform != transform)
+                if (damageable != null)
                 {
                     damageable.takeDamage(attackDamage);
                 }
+
             }
         }
         yield return new WaitForSeconds(attackRate);
@@ -111,7 +114,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void physics(Vector3 dir)
     {
-        pushBack += dir;
+        //pushBack += dir;
     }
     public void giveHP(int amount)
     {

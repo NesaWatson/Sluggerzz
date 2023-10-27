@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class weaponStats : MonoBehaviour
+
+public class weaponStats : ScriptableObject
 {
     public float attackRate; 
     public int attackDamage;
