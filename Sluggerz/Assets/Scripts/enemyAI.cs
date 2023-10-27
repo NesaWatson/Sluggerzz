@@ -135,34 +135,24 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     }
     public void takeDamage(int amount)
     {
-        HP -= amount;
-        //hitBoxOff();
-        //StartCoroutine(stopMoving());
 
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        HP -= amount;
+        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            //hitBox.enabled = false;
+            //isDefeated = true;
             agent.enabled = false;
-            anim.SetBool("Dead", true);
-            gameManager.instance.updateGameGoal(-1);
+            anim.SetBool("Death", true);
             StopAllCoroutines();
-            //if (whereISpawned != null)
-            //{
-            //    whereISpawned.heyIDied();
-            //}
         }
         else
         {
-            Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
-            Quaternion newRotation = Quaternion.LookRotation(playerDirection);
-            transform.rotation = newRotation;
-            agent.SetDestination(gameManager.instance.player.transform.position);
 
             anim.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            agent.SetDestination(gameManager.instance.player.transform.position); // moves enemy to player if shot
+            agent.SetDestination(gameManager.instance.player.transform.position);
+
         }
     }
     IEnumerator stopMoving()
