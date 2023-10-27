@@ -5,10 +5,8 @@ using UnityEngine;
 public class cameraController : MonoBehaviour
 {
     [SerializeField] int sensitivity;
-
-    [SerializeField] int lockVertMin;
-    [SerializeField] int lockVertMax;
-
+    [SerializeField] int verticalMin;
+    [SerializeField] int verticalMax;
     [SerializeField] bool invertY;
 
     float xRotation;
@@ -16,23 +14,21 @@ public class cameraController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
     }
+
+
     void Update()
     {
-       float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
-       float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
 
-        if (invertY)
-            xRotation += mouseY;
-        else
-            xRotation -= mouseY;
+        if (invertY) xRotation += mouseY;
+        else xRotation -= mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, lockVertMin, lockVertMax);
-
+        xRotation = Mathf.Clamp(xRotation, verticalMin, verticalMax);
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-
         transform.parent.Rotate(Vector3.up * mouseX);
     }
+
 }
 
