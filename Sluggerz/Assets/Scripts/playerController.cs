@@ -90,25 +90,35 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     IEnumerator attack()
     {
-        if (weaponList[selectedWeapon].ammoCurr > 0)
+        if (selectedWeapon >= 0 && selectedWeapon < weaponList.Count)
         {
-            isAttacking = true;
-            weaponList[selectedWeapon].ammoCurr--;
 
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, attackDistance))
+
+            if (weaponList[selectedWeapon].ammoCurr > 0)
             {
-                //Instantiate(wall, hit.point, transform.rotation);
-                iDamage damageable = hit.collider.GetComponent<iDamage>();
-                Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
+                isAttacking = true;
+                weaponList[selectedWeapon].ammoCurr--;
 
-                if (damageable != null)
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, attackDistance))
                 {
-                    damageable.takeDamage(attackDamage);
-                }
+                    //Instantiate(wall, hit.point, transform.rotation);
+                    iDamage damageable = hit.collider.GetComponent<iDamage>();
+                    Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
 
+                    if (damageable != null)
+                    {
+                        damageable.takeDamage(attackDamage);
+                    }
+
+                }
             }
         }
+        else
+        {
+            Debug.LogWarning("Selected weapon index is out of bounds.");
+        }
+
         yield return new WaitForSeconds(attackRate);
         isAttacking = false;
     }

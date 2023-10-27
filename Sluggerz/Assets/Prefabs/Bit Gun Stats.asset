@@ -18,5 +18,5 @@ MonoBehaviour:
   ammoCurr: 15
   ammoMax: 50
   model: {fileID: 6920627016260234254, guid: 809937b1944cfe84e8755cfc9867d571, type: 3}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 4713803734431041087, guid: 10a133c8f9362774fa3ceee7d3271331, type: 3}
   attackSound: {fileID: 0}
