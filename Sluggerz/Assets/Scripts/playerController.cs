@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [Range(3, 10)][SerializeField] float playerSpeed;
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
-    [Range(-35, -10)][SerializeField] float gravityValue;
+    [Range(-35, -15)][SerializeField] float gravityValue;
     //[Range(1, 10)][SerializeField] int pushBackResolve;
 
     [Header("----- Weapon Stats -----")]
@@ -27,7 +27,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Vector3 move; 
-    //private Vector3 pushBack;
+   // private Vector3 pushBack;
     private int jumpedTimes;
     private bool isAttacking;
     int HPOrig;
