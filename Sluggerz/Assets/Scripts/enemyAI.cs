@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,158 +9,231 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator anim;
-    [SerializeField] Transform shootPos;
+    [SerializeField] Animator animate;
+    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
-    //[SerializeField] Collider hitBox;
-    //[SerializeField] Collider swordCol;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] int HP;
-    [SerializeField] int targetFaceSpeed;
-    [SerializeField] int viewAngle;
-    [SerializeField] int roamDist;
-    [SerializeField] int roamPauseTime;
-    [SerializeField] float animSpeed;
+    [Range(0, 15)][SerializeField] int HP;
+    [Range(1, 30)][SerializeField] int targetFaceSpeed;
+    [Range(45, 180)][SerializeField] int viewAngle;
+    [Range(5, 50)][SerializeField] int wanderDist;
+    [Range(5, 50)][SerializeField] int wanderTime;
+    //[Range(0, 30)][SerializeField] float teleportDist;
+    //[Range(0, 10)][SerializeField] float teleportCooldown;
+    [Range(1, 3)][SerializeField] float animSpeed;
 
-    [Header("----- Gun Stats -----")]
-    [SerializeField] float shootRate;
-    [SerializeField] int shootAngle;
+    [Header("----- Weapon Stats -----")]
+    [SerializeField] float attackRate;
+    [SerializeField] int attackAngle;
     [SerializeField] GameObject bullet;
-    [SerializeField] int speed;
 
-    //public spawner whereISpawned;
-
-    [SerializeField] GameObject player;
     Vector3 playerDir;
+    Vector3 playerPos;
     Vector3 pushBack;
     bool playerInRange;
-    bool isShooting;
+    bool isAttacking;
     float stoppingDistOrig;
-    float angleToplayer;
-    bool destinationChoosen;
+    float angleToPlayer;
+    bool wanderDestination;
+
     Vector3 startingPos;
-    float speedOrig;
+    //enemySpawner spawner;
+    Transform playerTransform;
+    float origSpeed;
+    //bool isAlerted;
+    bool canSeePlayer;
+    //float lastTeleportTime;
 
     void Start()
     {
-        // moves enemy
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        //use a singleton to control multiple objects in the game
-        //see gameManager.cs
         startingPos = transform.position;
-        stoppingDistOrig = agent.stoppingDistance; 
-    }
+        stoppingDistOrig = agent.stoppingDistance;
 
+
+        playerTransform = gameManager.instance.player.transform;
+        //spawner = FindObjectOfType<enemySpawner>();
+
+
+        //enemyManager.instance.registerEnemy(this);
+        gameManager.instance.updateGameGoal(1);
+    }
     void Update()
     {
+
         if (agent.isActiveAndEnabled)
         {
-            float agentVel = agent.velocity.normalized.magnitude;
-            //anim.SetFloat("string name", float) // .magnitude ignores +/- numbers
-            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+            //if (Time.time - lastTeleportTime >= teleportCooldown)
+            //{
+            //    float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
+            //    if (distToPlayer < teleportDist)
+            //    {
+            //        teleport(playerTransform.position);
+            //    }
+            //}
+            faceTarget();
+            float agentVel = agent.velocity.normalized.magnitude;
+
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
             if (playerInRange && !canViewPlayer())
             {
-                StartCoroutine(roam());
+                StartCoroutine(wander());
             }
             else if (!playerInRange)
             {
-                StartCoroutine(roam());
+                StartCoroutine(wander());
             }
         }
-        //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
     }
-    IEnumerator roam()
-    {
-        if (agent.remainingDistance < 0.05f && !destinationChoosen) 
-        {
-            destinationChoosen = true;
-            agent.stoppingDistance = 0;
-            yield return new WaitForSeconds(roamPauseTime);
+    //void teleport(Vector3 teleportPos)
+    //{
+    //    Vector3 dirToPlayer = (teleportPos - transform.position).normalized;
+    //    Vector3 offset = dirToPlayer * 1.0f;
+    //    Vector3 finalTeleportPos = teleportPos + offset;
 
-            Vector3 randomPos = Random.insideUnitSphere * roamDist;
+    //    RaycastHit hitInfo;
+    //    NavMeshHit navMeshHit;
+
+    //    if (Physics.Raycast(finalTeleportPos, Vector3.down, out hitInfo, 2.0f, LayerMask.GetMask("Ground")))
+    //    {
+    //        finalTeleportPos = hitInfo.point;
+    //    }
+    //    else
+    //    {
+    //        if (NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+    //        {
+    //            finalTeleportPos = navMeshHit.position;
+    //        }
+    //        else
+    //        {
+    //            finalTeleportPos = transform.position;
+    //        }
+    //    }
+    //    if (NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+    //    {
+    //        agent.Warp(navMeshHit.position);
+    //        lastTeleportTime = Time.time;
+    //    }
+
+    //}
+    //public void setAlerted(Vector3 playerPos)
+    //{
+    //    if (!isAlerted)
+    //    {
+    //        isAlerted = true;
+    //        agent.SetDestination(playerPos);
+    //    }
+    //    isAlerted = false;
+    //}
+    IEnumerator wander()
+    {
+        if (agent.remainingDistance < 0.05f && !wanderDestination)
+        {
+            wanderDestination = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(wanderTime);
+
+            agent.SetDestination(startingPos);
+
+            Vector3 randomPos = Random.insideUnitSphere * wanderDist;
             randomPos += startingPos;
 
             NavMeshHit hit;
-            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+            NavMesh.SamplePosition(randomPos, out hit, wanderDist, 1);
             agent.SetDestination(hit.position);
 
-            destinationChoosen = false;
+            wanderDestination = false;
         }
     }
     bool canViewPlayer()
     {
-
+        agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToplayer = Vector3.Angle(playerDir, transform.forward);
-#if(UNITY_EDITOR)
-        Debug.Log(angleToplayer);
-        Debug.DrawRay(headPos.position, playerDir);
-#endif 
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+        //#if(UNITY_EDITOR)
+        //        Debug.Log(angleToPlayer);
+        //        Debug.DrawRay(headPos.position, playerDir);
+        //#endif
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToplayer <= viewAngle)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     faceTarget();
 
-                    if (!isShooting && angleToplayer <= shootAngle)
+                    if (!isAttacking && angleToPlayer <= attackAngle)
                     {
-                        StartCoroutine(shoot());
+                        StartCoroutine(attack());
                     }
                 }
+
+
+                //if (!isAlerted)
+                //{
+                //    enemyManager.instance.AlertedEnemies
+                //        (gameManager.instance.player.transform.position);
+                //    isAlerted = true;
+                //}
                 return true;
             }
         }
         agent.stoppingDistance = 0;
         return false;
     }
-    IEnumerator shoot()
+    IEnumerator attack()
     {
-        isShooting = true;
-        anim.SetTrigger("Shoot");
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
-    }
-    public void createBullet()
-    {
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        isAttacking = true;
+        animate.SetTrigger("Attack");
+        createBullet();
+        yield return new WaitForSeconds(attackRate);
+
+        isAttacking = false;
     }
     public void takeDamage(int amount)
     {
-
         HP -= amount;
-        //Boss.SetDestination(gameManager.instance.player.transform.position);
+
+        //StartCoroutine(stopMoving());
 
         if (HP <= 0)
         {
-            //isDefeated = true;
             agent.enabled = false;
-            anim.SetBool("Death", true);
+            stopMoving();
+            animate.SetBool("Death", true);
             StopAllCoroutines();
+            StartCoroutine(Deadenemy());
         }
         else
         {
-
-            anim.SetTrigger("Damage");
-            StartCoroutine(flashDamage());
+            Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
+            Quaternion newRotation = Quaternion.LookRotation(playerDirection);
+            transform.rotation = newRotation;
             agent.SetDestination(gameManager.instance.player.transform.position);
 
+            animate.SetTrigger("Damage");
+            StartCoroutine(flashDamage());
+
+            //enemyManager.instance.AlertedEnemies(gameManager.instance.player.transform.position);
         }
+
     }
     IEnumerator stopMoving()
     {
         agent.speed = 0;
         yield return new WaitForSeconds(0.1f);
-        agent.speed = speedOrig;
+        agent.speed = origSpeed;
+    }
+    public void createBullet()
+    {
+        Instantiate(bullet, attackPos.position, transform.rotation);
     }
     IEnumerator flashDamage()
     {
@@ -169,7 +243,6 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     }
     void faceTarget()
     {
-        //face towards target
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
     }
@@ -192,17 +265,19 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
             agent.stoppingDistance = 0;
         }
     }
-    //public void hitBoxOff()
+    //void OnDestroy()
     //{
-    //    swordCol.enabled = false;
+    //    if (enemyManager.instance != null)
+    //    {
+    //        enemyManager.instance.unregisterEnemy(this);
+    //    }
     //}
-    //public void hitBoxOn()
-    //{
-    //    swordCol.enabled = true;
-    //}
-    //public void whereISpawned(spawner where)
-    //{
+    public IEnumerator Deadenemy()
+    {
 
-    //}
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
+    }
+
 }
 

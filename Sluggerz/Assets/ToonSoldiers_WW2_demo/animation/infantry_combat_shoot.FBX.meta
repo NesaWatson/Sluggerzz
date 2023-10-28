@@ -175,7 +175,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -195,10 +195,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.0015290336
-        functionName: CreateBullet
+      - time: 0.16838498
+        functionName: createBullet
         data: 
-        objectReferenceParameter: {fileID: 6479709605865293921, guid: e5f3b50756af7c24fb0d25d5893c2151, type: 3}
+        objectReferenceParameter: {fileID: 2050597636013927233, guid: 81d52982c1115f74cb52dd30b31f51e0, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
