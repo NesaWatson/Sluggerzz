@@ -1458,14 +1458,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground
       objectReference: {fileID: 0}
-    - target: {fileID: 1346588708258441621, guid: 91d955f6c80746d4a90474769574b7be, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808146027408933906, guid: 91d955f6c80746d4a90474769574b7be, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 66837b006e11a1a4d8fd5fb6f0a7836e, type: 2}
     - target: {fileID: 4950474318521671038, guid: 91d955f6c80746d4a90474769574b7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
