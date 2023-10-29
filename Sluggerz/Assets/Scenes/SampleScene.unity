@@ -1462,6 +1462,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 4808146027408933906, guid: 91d955f6c80746d4a90474769574b7be, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66837b006e11a1a4d8fd5fb6f0a7836e, type: 2}
     - target: {fileID: 4950474318521671038, guid: 91d955f6c80746d4a90474769574b7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3458,9 +3462,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
   HP: 30
   targetFaceSpeed: 30
   viewAngle: 180
@@ -3469,6 +3470,7 @@ MonoBehaviour:
   wanderTime: 50
   animSpeed: 3
   attackAnimDelay: 0
+  retreatDist: 0
   weapon: {fileID: 297129587474159060}
   weaponHand: {fileID: 6886723061192352050}
   attackRate: 1
