@@ -9,6 +9,7 @@ public class gameManager : MonoBehaviour
     public static gameManager instance;
 
     public GameObject player;
+    public GameObject enemy;
     public playerController playerScript;
 
     [SerializeField] GameObject activeMenu;
