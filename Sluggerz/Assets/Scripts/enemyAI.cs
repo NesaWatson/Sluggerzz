@@ -12,7 +12,6 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     [SerializeField] Animator animate;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] LayerMask enemyLayer;
 
 
     [Header("----- Enemy Stats -----")]
@@ -24,6 +23,8 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     [Range(5, 50)][SerializeField] int wanderTime;
     [SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
+    [SerializeField] float retreatDist;
+
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] GameObject weapon;
@@ -36,30 +37,16 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
     Vector3 playerDir;
     Vector3 pushBack;
     bool playerInRange;
-    bool enemyInRange;
     bool isAttacking;
     float stoppingDistOrig;
     float angleToPlayer;
     bool wanderDestination;
     Vector3 startingPos;
     Transform playerTransform;
-    Transform enemyTransform;
     float origSpeed;
     GameObject currentWeapon;
     public playerController playerController;
     //private bool isDefeated = false;
-
-    private enum AIState
-    {
-        Idle,
-        ChasePlayer, 
-        AttackPlayer, 
-        AttackEnemy
-    }
-
-    private AIState currentState;
-    private float decisionTimer; 
-    private float decisionInterval = 2.0f;
 
     void Start()
     {
@@ -69,118 +56,36 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
 
         playerTransform = gameManager.instance.player.transform;
 
-        currentState = AIState.Idle;
-        decisionTimer = 0f;
+        
     }
     void Update()
     {
-        decisionTimer += Time.deltaTime;
-
-        switch (currentState)
-        {
-            case AIState.Idle:
-                float agentVel = agent.velocity.normalized.magnitude;
-
-                animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
-                StartCoroutine(wander());
-
-                if (decisionTimer >= decisionInterval)
-                {
-                    float randomChoice = Random.value;
-
-                    if (randomChoice < 0.4f)
-                    {
-                        currentState = AIState.ChasePlayer;
-                    }
-                    else if (randomChoice < 0.7f)
-                    {
-                        currentState = AIState.AttackPlayer;
-                    }
-                    else
-                    {
-                        currentState = AIState.AttackEnemy;
-                    }
-                    decisionTimer = 0f;
-                }
-            break;
-
-            case AIState.ChasePlayer:
-                if (playerInRange && canViewPlayer())
-                {
-                    animate.SetTrigger("Run");
-                    float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-                }
-                else
-                {
-                    currentState = AIState.Idle;
-                }
-            break;
-
-            case AIState.AttackPlayer:
-                if (playerInRange && canViewPlayer())
-                {
-                    animate.SetTrigger("Run");
-                    float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-
-                    if (distanceToPlayer <= attackRange && !isAttacking)
-                    {
-                        animate.SetTrigger("Attack");
-                        StartCoroutine(meleeAttack());
-                    }
-                }
-                else
-                {
-                    animate.ResetTrigger("Run");
-                    currentState = AIState.Idle;
-                }
-            break;
-
-            case AIState.AttackEnemy:
-                if (enemyInRange && canViewEnemy())
-                {
-                    animate.SetTrigger("Run");
-                    float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
-
-                    if (distanceToEnemy <= attackRange && !isAttacking)
-                    {
-                        animate.SetTrigger("Attack");
-                        StartCoroutine(meleeAttack());
-                    }
-                }
-                else
-                {
-                    animate.ResetTrigger("Run");
-                    currentState = AIState.Idle;
-                }
-            break;
-            
-        }
 
         //if (!isDefeated)
         //{
-        //    if (agent.isActiveAndEnabled)
-        //    {
-        //        float agentVel = agent.velocity.normalized.magnitude;
+        if (agent.isActiveAndEnabled)
+        {
+            float agentVel = agent.velocity.normalized.magnitude;
 
-        //        animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
 
-        //        if (playerInRange && canViewPlayer())
-        //        {
-        //            animate.SetTrigger("Run");
-        //            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            if (playerInRange && canViewPlayer())
+            {
+                animate.SetTrigger("Run");
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-        //            if (distanceToPlayer <= attackRange && !isAttacking)
-        //            {
-        //                animate.SetTrigger("Attack");
-        //                StartCoroutine(meleeAttack());
-        //            }
-        //        }
-        //        else
-        //        {
-        //            animate.ResetTrigger("Run");
-        //            StartCoroutine(wander());
-        //        }
-        //    }
+                if (distanceToPlayer <= attackRange && !isAttacking)
+                {
+                    animate.SetTrigger("Attack");
+                    StartCoroutine(meleeAttack());
+                }
+            }
+            else
+            {
+                animate.ResetTrigger("Run");
+                StartCoroutine(wander());
+            }
+        }
         //}
     }
     IEnumerator wander()
@@ -218,34 +123,6 @@ public class enemyAI : MonoBehaviour, iDamage, iPhysics
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
-
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    faceTarget();
-
-                    if (!isAttacking && angleToPlayer <= attackAngle)
-                    {
-                        StartCoroutine(meleeAttack());
-                    }
-                }
-                return true;
-            }
-        }
-        agent.stoppingDistance = 0;
-        return false;
-    }
-    bool canViewEnemy()
-    {
-        playerDir = gameManager.instance.enemy.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, enemyLayer))
-        {
-
-            if (hit.collider.CompareTag("Enemy") && angleToPlayer <= viewAngle)
-            {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.enemy.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
