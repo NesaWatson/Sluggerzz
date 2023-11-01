@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, iDamage, iPhysics
 {
@@ -22,12 +23,13 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [SerializeField] int shootDamage;
     [SerializeField] int shootDistance;
 
+
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Vector3 move; 
     private Vector3 pushBack;
     private int jumpedTimes;
-    private bool isShooting;
+    public bool isShooting;
     public int HPOrig;
     int selectedWeapon;
 
@@ -36,7 +38,6 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         HPOrig = HP;
         spawnPlayer();
 
-        
     }
 
     void Update()
@@ -46,7 +47,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         movement();
         selectWeapon();
 
-        if (!gameManager.instance.isPaused && Input.GetButton("Shoot") && !isShooting)
+        if (!gameManager.instance.isPaused && weaponList.Count > 0 && Input.GetButton("shoot") && !isShooting)
         {
             StartCoroutine(shoot());
         }
@@ -86,24 +87,30 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     IEnumerator shoot()
     {
-        if (weaponList[selectedWeapon].ammoCurr > 0)
+        isShooting = true;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
-            isShooting = true;
-            weaponList[selectedWeapon].ammoCurr--;
+            Debug.Log("Hit: " + hit.transform.name);
 
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
+            iDamage damageable = hit.collider.GetComponent<iDamage>();
+            if (damageable != null && hit.transform != transform)
             {
-                //Instantiate(wall, hit.point, transform.rotation);
-                iDamage damageable = hit.collider.GetComponent<iDamage>();
-                Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
-
-                if (damageable != null && hit.transform != transform)
-                {
-                    damageable.takeDamage(shootDamage);
-                }
+                Debug.Log("Damaging: " + hit.transform.name);
+                damageable.takeDamage(shootDamage);
             }
+            else
+            {
+                Debug.Log("No damageable object found.");
+            }
+
         }
+        else
+        {
+            Debug.Log("Raycast didn't hit anything.");
+        }
+
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -152,6 +159,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         weaponModel.GetComponent<Renderer>().sharedMaterial = weapon.model.GetComponent<Renderer>().sharedMaterial;
 
         selectedWeapon = weaponList.Count - 1;
+
     }
     void selectWeapon()
     {

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
+    public weaponStats weaponStats;
 
     public GameObject player;
     public GameObject enemy;
@@ -21,6 +23,8 @@ public class gameManager : MonoBehaviour
 
     public GameObject playerSpawnPos;
     public Image playerHPBar;
+    [SerializeField] public TMP_Text ammoText;
+
     [SerializeField] TMP_Text enemiesRemainingText;
 
     [SerializeField] int enemiesRemaining;
@@ -94,6 +98,13 @@ public class gameManager : MonoBehaviour
         float fillAmount = (float)playerScript.HP / playerScript.HPOrig;
         gameManager.instance.playerHPBar.fillAmount = fillAmount;
     }
+    //public void updateAmmoUI(int currentAmmo, int maxAmmo)
+    //{
+    //    weaponStats.ammoCurr = currentAmmo;
+    //    weaponStats.ammoMax = maxAmmo;
+
+    //    ammoText.text = $"{currentAmmo}/{maxAmmo}";
+    //}
     //public IEnumerator checkPointPopup()
     //{
     //    checkPointMenu.SetActive(true);
