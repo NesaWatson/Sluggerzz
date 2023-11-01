@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(1, 10)][SerializeField]public int HP;
+    [Range(1, 10)][SerializeField] public int HP;
     [Range(3, 10)][SerializeField] float playerSpeed;
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
@@ -32,6 +32,8 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public bool isShooting;
     public int HPOrig;
     int selectedWeapon;
+    public int shield;
+    public int stamina;
 
     private void Start()
     {
@@ -123,7 +125,14 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         HP += amount;
         //then add function in button function
     }
-
+    public void giveShield(int amount)
+    {
+        shield += amount;
+    }
+    public void giveStamina(int amount)
+    {
+        stamina += amount;
+    }
     public void takeDamage(int amount)
     {
         HP -= amount;

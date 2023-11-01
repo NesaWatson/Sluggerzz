@@ -23,6 +23,10 @@ public class gameManager : MonoBehaviour
 
     public GameObject playerSpawnPos;
     public Image playerHPBar;
+    public Image playerShieldBar;
+    public Image playerStaminaBar;
+
+
     [SerializeField] public TMP_Text ammoText;
 
     [SerializeField] TMP_Text enemiesRemainingText;
