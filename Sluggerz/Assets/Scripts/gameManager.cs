@@ -90,6 +90,9 @@ public class gameManager : MonoBehaviour
         playerDamageFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         playerDamageFlash.SetActive(false);
+
+        float fillAmount = (float)playerScript.HP / playerScript.HPOrig;
+        gameManager.instance.playerHPBar.fillAmount = fillAmount;
     }
     //public IEnumerator checkPointPopup()
     //{

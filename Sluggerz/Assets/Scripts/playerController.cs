@@ -8,56 +8,58 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(1, 10)][SerializeField] int HP;
+    [Range(1, 10)][SerializeField]public int HP;
     [Range(3, 10)][SerializeField] float playerSpeed;
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
     [Range(-35, -15)][SerializeField] float gravityValue;
-    //[Range(1, 10)][SerializeField] int pushBackResolve;
+    [Range(1, 10)][SerializeField] int pushBackResolve;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject weaponModel;
-    [SerializeField] float attackRate;
-    [SerializeField] int attackDamage;
-    [SerializeField] int attackDistance;
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDamage;
+    [SerializeField] int shootDistance;
 
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Vector3 move; 
-   // private Vector3 pushBack;
+    private Vector3 pushBack;
     private int jumpedTimes;
-    private bool isAttacking;
-    int HPOrig;
+    private bool isShooting;
+    public int HPOrig;
     int selectedWeapon;
 
     private void Start()
     {
         HPOrig = HP;
         spawnPlayer();
+
+        
     }
 
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * attackDistance);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance);
 
         movement();
         selectWeapon();
 
-        if (!gameManager.instance.isPaused && Input.GetButton("attack") && !isAttacking)
+        if (!gameManager.instance.isPaused && Input.GetButton("Shoot") && !isShooting)
         {
-            StartCoroutine(attack());
+            StartCoroutine(shoot());
         }
     }
 
     void movement()
     {
-        //if (pushBack.magnitude > 0.01f)
-        //{
-        //    pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
-        //    pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
-        //    pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
-        //}
+        if (pushBack.magnitude > 0.01f)
+        {
+            pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
+            pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
+            pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
+        }
 
         groundedPlayer = controller.isGrounded;
 
@@ -69,12 +71,8 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
 
         move = Input.GetAxis("Horizontal") * transform.right +
             Input.GetAxis("Vertical") * transform.forward;
-        controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (Input.GetButtonDown("Jump") && jumpedTimes < jumpsMax)
         {
@@ -82,53 +80,43 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
             playerVelocity.y = jumpHeight;
         }
         playerVelocity.y += gravityValue * Time.deltaTime;
-        //controller.Move((playerVelocity + pushBack) * Time.deltaTime);
+        controller.Move((playerVelocity + pushBack) * Time.deltaTime);
 
         //pushBack = Vector3.zero;
     }
-    IEnumerator attack()
+    IEnumerator shoot()
     {
-        if (selectedWeapon >= 0 && selectedWeapon < weaponList.Count)
+        if (weaponList[selectedWeapon].ammoCurr > 0)
         {
+            isShooting = true;
+            weaponList[selectedWeapon].ammoCurr--;
 
-
-            if (weaponList[selectedWeapon].ammoCurr > 0)
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
-                isAttacking = true;
-                weaponList[selectedWeapon].ammoCurr--;
+                //Instantiate(wall, hit.point, transform.rotation);
+                iDamage damageable = hit.collider.GetComponent<iDamage>();
+                Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
 
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, attackDistance))
+                if (damageable != null && hit.transform != transform)
                 {
-                    //Instantiate(wall, hit.point, transform.rotation);
-                    iDamage damageable = hit.collider.GetComponent<iDamage>();
-                    Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
-
-                    if (damageable != null)
-                    {
-                        damageable.takeDamage(attackDamage);
-                    }
-
+                    damageable.takeDamage(shootDamage);
                 }
             }
         }
-        else
-        {
-            Debug.LogWarning("Selected weapon index is out of bounds.");
-        }
-
-        yield return new WaitForSeconds(attackRate);
-        isAttacking = false;
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
     public void physics(Vector3 dir)
     {
-        //pushBack += dir;
+        pushBack += dir;
     }
     public void giveHP(int amount)
     {
         HP += amount;
         //then add function in button function
     }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -156,9 +144,9 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     {
         weaponList.Add(weapon);
 
-        attackDamage = weapon.attackDamage;
-        attackDistance = weapon.attackDistance;
-        attackRate = weapon.attackRate;
+        shootDamage = weapon.attackDamage;
+        shootDistance = weapon.attackDistance;
+        shootRate = weapon.attackRate;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<Renderer>().sharedMaterial = weapon.model.GetComponent<Renderer>().sharedMaterial;
@@ -181,9 +169,9 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     void changeWeapon()
     {
 
-        attackDamage = weaponList[selectedWeapon].attackDamage;
-        attackDistance = weaponList[selectedWeapon].attackDistance;
-        attackRate = weaponList[selectedWeapon].attackRate;
+        shootDamage = weaponList[selectedWeapon].attackDamage;
+        shootDistance = weaponList[selectedWeapon].attackDistance;
+        shootRate = weaponList[selectedWeapon].attackRate;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<Renderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<Renderer>().sharedMaterial;
