@@ -31,9 +31,11 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     private int jumpedTimes;
     public bool isShooting;
     public int HPOrig;
+    public int shieldOrig;
     int selectedWeapon;
     public int shield;
     public int stamina;
+    public int durationInSecs;
 
     private void Start()
     {
@@ -123,21 +125,40 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public void giveHP(int amount)
     {
         HP += amount;
-        //then add function in button function
+        updatePlayerHP();
     }
     public void giveShield(int amount)
     {
-        shield += amount;
+        shield = amount;
+        gameManager.instance.enableShield();
     }
     public void giveStamina(int amount)
     {
-        stamina += amount;
+        StartCoroutine(activateStamina(amount, durationInSecs));
+        gameManager.instance.enableStamina();
+    }
+    IEnumerator activateStamina(float speedMultiplier, float duration)
+    {
+        float speedOrig = playerSpeed; 
+        playerSpeed *= speedMultiplier;
+
+        yield return new WaitForSeconds(duration);
+        playerSpeed = speedOrig;
     }
     public void takeDamage(int amount)
     {
-        HP -= amount;
-        StartCoroutine(gameManager.instance.playerFlashDamage());
-        updatePlayerUI();
+        if(shield != 0)
+        {
+           shield -= amount;
+           StartCoroutine(gameManager.instance.playerFlashDamage());
+           updatePlayerShield();
+        }
+        else
+        {
+            HP -= amount;
+            StartCoroutine(gameManager.instance.playerFlashDamage());
+            updatePlayerHP();
+        }
 
         if (HP <= 0)
         {
@@ -147,14 +168,25 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public void spawnPlayer()
     {
         HP = HPOrig;
-        updatePlayerUI();
+        updatePlayerHP();
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
     }
-    public void updatePlayerUI()
+    public void updatePlayerHP()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+
+    }
+    public void updatePlayerShield()
+    {
+        gameManager.instance.playerShieldBar.fillAmount = (float)shield / shieldOrig;
+
+    }
+    public void updatePlayerStamina()
+    {
+        gameManager.instance.playerStaminaBar.fillAmount = (float)stamina / durationInSecs;
+
     }
     public void weaponPickup(weaponStats weapon)
     {

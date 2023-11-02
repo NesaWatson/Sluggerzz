@@ -25,6 +25,8 @@ public class gameManager : MonoBehaviour
     public Image playerHPBar;
     public Image playerShieldBar;
     public Image playerStaminaBar;
+    public GameObject shieldUI;
+    public GameObject staminaUI;
 
 
     [SerializeField] public TMP_Text ammoText;
@@ -99,8 +101,23 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         playerDamageFlash.SetActive(false);
 
-        float fillAmount = (float)playerScript.HP / playerScript.HPOrig;
-        gameManager.instance.playerHPBar.fillAmount = fillAmount;
+        //float fillAmount = (float)playerScript.HP / playerScript.HPOrig;
+        //gameManager.instance.playerHPBar.fillAmount = fillAmount;
+    }
+    public void enableShield()
+    {
+        if(shieldUI != null)
+        {
+            shieldUI.SetActive(true);
+        }
+    }
+    public void enableStamina()
+    {
+        if (staminaUI != null)
+        {
+            staminaUI.SetActive(true);
+        }
+
     }
     //public void updateAmmoUI(int currentAmmo, int maxAmmo)
     //{
