@@ -22,7 +22,6 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics
     [Range(5, 50)][SerializeField] int wanderTime;
     [SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
-    [SerializeField] float retreatDist;
 
 
     [Header("----- Weapon Stats -----")]
@@ -169,7 +168,6 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
@@ -181,11 +179,9 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics
         }
         else
         {
-
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             agent.SetDestination(gameManager.instance.player.transform.position);
-
         }
     }
     IEnumerator flashDamage()

@@ -11,6 +11,7 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     [SerializeField] Animator animate;
     [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
+    [SerializeField] LayerMask playerLayer;
 
     [Header("----- Enemy Stats -----")]
     [Range(0, 30)][SerializeField] int HP;
@@ -132,24 +133,19 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        ballShooter.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            //isDefeated = true;
             ballShooter.enabled = false;
-            stopMoving();
             animate.SetBool("Death", true);
-            gameManager.instance.updateGameGoal(-1);
-            Destroy(gameObject);
+            StopAllCoroutines();
+            StartCoroutine(Deadenemy());
         }
         else
         {
-
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             ballShooter.SetDestination(gameManager.instance.player.transform.position);
-
         }
     }
     IEnumerator stopMoving()
@@ -191,6 +187,12 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
         {
             playerInRange = false;
         }
+    }
+    IEnumerator Deadenemy()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
     }
 }
 
