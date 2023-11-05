@@ -9,12 +9,11 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent boss;
     [SerializeField] Animator animate;
-    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
 
     [Header("----- Enemy Stats -----")]
-    [Range(0, 15)][SerializeField] int HP;
+    [Range(0, 50)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;

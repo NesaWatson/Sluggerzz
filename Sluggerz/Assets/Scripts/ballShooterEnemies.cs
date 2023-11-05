@@ -14,7 +14,7 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     [SerializeField] LayerMask playerLayer;
 
     [Header("----- Enemy Stats -----")]
-    [Range(0, 30)][SerializeField] int HP;
+    [Range(0, 20)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;

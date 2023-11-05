@@ -14,7 +14,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
 
 
     [Header("----- Enemy Stats -----")]
-    [Range(0, 30)][SerializeField] int HP;
+    [Range(0, 15)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(45, 180)][SerializeField] int viewDistance;

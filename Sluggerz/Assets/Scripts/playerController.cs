@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(1, 10)][SerializeField] public int HP;
+    [Range(1, 20)][SerializeField] public int HP;
     [Range(3, 10)][SerializeField] float playerSpeed;
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
@@ -37,6 +37,8 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public int stamina;
     public int durationInSecs;
 
+    private List<WeaponRuntimeData> playerGuns = new List<WeaponRuntimeData>();
+
     private void Start()
     {
         HPOrig = HP;
@@ -56,7 +58,13 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
             StartCoroutine(shoot());
         }
     }
+    public void PlayerCheckpointRefresh()
+    {
+        HP = HPOrig;
+        //AmmoRefill();
+        updatePlayerHP();
 
+    }
     void movement()
     {
         if (pushBack.magnitude > 0.01f)
@@ -167,6 +175,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void spawnPlayer()
     {
+        gameManager.instance.LoadPlayerState();
         HP = HPOrig;
         updatePlayerHP();
         controller.enabled = false;
@@ -217,12 +226,52 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     void changeWeapon()
     {
-
         shootDamage = weaponList[selectedWeapon].attackDamage;
         shootDistance = weaponList[selectedWeapon].attackDistance;
         shootRate = weaponList[selectedWeapon].attackRate;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<Renderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<Renderer>().sharedMaterial;
+    }
+    public int GetPlayerHP()
+    {
+        return HP;
+    }
+    public void SetPlayerHP(int hp)
+    {
+        HPOrig = hp;
+    }
+    public WeaponRuntimeData GetPlayerGun(int index)
+    {
+        if (index >= 0 && index < playerGuns.Count)
+        {
+            return playerGuns[index];
+        }
+        return null;
+    }
+
+    public weaponStats GetWeaponConfig(string weaponName)
+    {
+        foreach (weaponStats weapon in weaponList)
+        {
+            if (weapon.weaponName == weaponName)
+            {
+                return weapon;
+            }
+        }
+        return null;
+    }
+
+    public int GetPlayerGunsCount() { return playerGuns.Count; }
+
+    public void AddWeapon(string gunName, int gunAmmo)
+    {
+        weaponStats weaponConfig = GetWeaponConfig(gunName);
+
+        if (weaponConfig != null)
+        {
+            WeaponRuntimeData newWeapon = new WeaponRuntimeData { config = weaponConfig, ammoCur = gunAmmo };
+            playerGuns.Add(newWeapon);
+        }
     }
 }

@@ -126,11 +126,44 @@ public class gameManager : MonoBehaviour
 
     //    ammoText.text = $"{currentAmmo}/{maxAmmo}";
     //}
-    //public IEnumerator checkPointPopup()
-    //{
-    //    checkPointMenu.SetActive(true);
-    //    yield return new WaitForSeconds(2);
-    //    checkPointMenu.SetActive(false);
+    public IEnumerator checkPointPopup()
+    {
+        checkPointMenu.SetActive(true);
+        yield return new WaitForSeconds(2);
+        checkPointMenu.SetActive(false);
 
-    //}
+    }
+    public void SavePlayerState()
+    {
+        int playerHP = playerScript.GetPlayerHP();
+        PlayerPrefs.SetInt("Player_HP", playerHP);
+
+        int gunCount = playerScript.GetPlayerGunsCount();
+        PlayerPrefs.SetInt("Guns_Count", gunCount);
+        for (int i = 0; i < gunCount; i++)
+        {
+            WeaponRuntimeData weapon = playerScript.GetPlayerGun(i);
+            if (weapon != null)
+            {
+                PlayerPrefs.SetString($"Gun_Type_{i}", weapon.config.weaponName);
+                PlayerPrefs.SetInt($"Gun_Ammo_{i}", weapon.ammoCur);
+
+            }
+        }
+    }
+    public void LoadPlayerState()
+    {
+        int playerHP = PlayerPrefs.GetInt("Player_HP", 10);
+        playerScript.SetPlayerHP(playerHP);
+
+        int gunCount = PlayerPrefs.GetInt("Guns_Count", 0);
+        for (int i = 0; i < gunCount; i++)
+        {
+            string gunName = PlayerPrefs.GetString($"Gun_Type_{i}", "");
+            int gunAmmo = PlayerPrefs.GetInt($"Gun_Ammo_{i}", 0);
+
+
+            playerScript.AddWeapon(gunName, gunAmmo);
+        }
+    }
 }
