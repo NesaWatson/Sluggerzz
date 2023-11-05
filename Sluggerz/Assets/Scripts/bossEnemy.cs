@@ -3,126 +3,160 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
+public class bossEnemy : MonoBehaviour, iDamage, iPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] NavMeshAgent boss;
     [SerializeField] Animator animate;
+    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
 
-
     [Header("----- Enemy Stats -----")]
-    [Range(0, 30)][SerializeField] int HP;
+    [Range(0, 15)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
-    [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
-    [SerializeField] float animSpeed;
+    [Range(0, 30)][SerializeField] float teleportDist;
+    [Range(0, 10)][SerializeField] float teleportCooldown;
+    [Range(1, 3)][SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
 
-
     [Header("----- Weapon Stats -----")]
-    [SerializeField] GameObject weapon;
-    [SerializeField] Transform weaponHand;
+    [SerializeField] GameObject bat;
+    [SerializeField] Transform batHand;
     [SerializeField] float attackRate;
     [SerializeField] float attackRange;
-    [SerializeField] int weaponDamageAmount;
+    [SerializeField] int batDamageAmount;
     [SerializeField] int attackAngle;
 
     Vector3 playerDir;
+    Vector3 playerPos;
     Vector3 pushBack;
     bool playerInRange;
     bool isAttacking;
     float stoppingDistOrig;
     float angleToPlayer;
     bool wanderDestination;
+
     Vector3 startingPos;
     Transform playerTransform;
     float origSpeed;
-    GameObject currentWeapon;
-    public playerController playerController;
-    //private bool isDefeated = false;
+    bool isAlerted;
+    bool canSeePlayer;
+    float lastTeleportTime;
 
     void Start()
     {
         startingPos = transform.position;
-        stoppingDistOrig = agent.stoppingDistance;
+        stoppingDistOrig = boss.stoppingDistance;
 
 
         playerTransform = gameManager.instance.player.transform;
 
-        
+        gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
 
-        //if (!isDefeated)
-        //{
-        if (agent.isActiveAndEnabled)
+        if (boss.isActiveAndEnabled)
         {
-            float agentVel = agent.velocity.normalized.magnitude;
-
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
-
-            if (playerInRange && canViewPlayer())
+            if (Time.time - lastTeleportTime >= teleportCooldown)
             {
-                animate.SetTrigger("Run");
-                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-                if (distanceToPlayer <= attackRange && !isAttacking)
+                if (distToPlayer < teleportDist)
                 {
-                    animate.SetTrigger("Attack");
-                    StartCoroutine(meleeAttack());
+                    teleport(playerTransform.position);
                 }
             }
-            else
+            faceTarget();
+            float agentVel = boss.velocity.normalized.magnitude;
+
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+
+            if (playerInRange && !canViewPlayer())
             {
-                animate.ResetTrigger("Run");
+                StartCoroutine(wander());
+            }
+            else if (!playerInRange)
+            {
                 StartCoroutine(wander());
             }
         }
-        //}
+    }
+    void teleport(Vector3 teleportPos)
+    {
+        Vector3 dirToPlayer = (teleportPos - transform.position).normalized;
+        Vector3 offset = dirToPlayer * 1.0f;
+        Vector3 finalTeleportPos = teleportPos + offset;
+
+        RaycastHit hitInfo;
+        NavMeshHit navMeshHit;
+
+        if (Physics.Raycast(finalTeleportPos, Vector3.down, out hitInfo, 2.0f, LayerMask.GetMask("Ground")))
+        {
+            finalTeleportPos = hitInfo.point;
+        }
+        else
+        {
+            if (NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+            {
+                finalTeleportPos = navMeshHit.position;
+            }
+            else
+            {
+                finalTeleportPos = transform.position;
+            }
+        }
+        if (NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+        {
+            boss.Warp(navMeshHit.position);
+            lastTeleportTime = Time.time;
+        }
+
     }
     IEnumerator wander()
     {
-        if (agent.remainingDistance < 0.05f && !wanderDestination)
+        if (boss.remainingDistance < 0.05f && !wanderDestination)
         {
             wanderDestination = true;
-            agent.stoppingDistance = 3;
+            boss.stoppingDistance = 0;
             yield return new WaitForSeconds(wanderTime);
+
+            boss.SetDestination(startingPos);
 
             Vector3 randomPos = Random.insideUnitSphere * wanderDist;
             randomPos += startingPos;
 
             NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, wanderDist, 1);
-            agent.SetDestination(hit.position);
+            boss.SetDestination(hit.position);
 
             wanderDestination = false;
         }
     }
     bool canViewPlayer()
     {
+        boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        //#if (UNITY_EDITOR)
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+        //#if(UNITY_EDITOR)
         //        Debug.Log(angleToPlayer);
         //        Debug.DrawRay(headPos.position, playerDir);
         //#endif
-        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                boss.stoppingDistance = stoppingDistOrig;
 
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                boss.SetDestination(gameManager.instance.player.transform.position);
+
+                if (boss.remainingDistance <= boss.stoppingDistance)
                 {
                     faceTarget();
 
@@ -134,13 +168,8 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        boss.stoppingDistance = 0;
         return false;
-    }
-    public void Alert(Vector3 playerPos)
-    {
-        agent.SetDestination(playerPos);
-        StartCoroutine(meleeAttack());
     }
     IEnumerator meleeAttack()
     {
@@ -159,35 +188,37 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
 
                 if (player != null)
                 {
-                    player.takeDamage(weaponDamageAmount);
+                    player.takeDamage(batDamageAmount);
                 }
             }
             isAttacking = false;
         }
     }
-
-    //public bool IsDefeated
-    //{
-    //    get { return isDefeated; }
-    //}
     public void takeDamage(int amount)
     {
         HP -= amount;
 
+        //StartCoroutine(stopMoving());
+
         if (HP <= 0)
         {
-            //isDefeated = true;
-            agent.enabled = false;
+            boss.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
         }
         else
         {
+            Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
+            Quaternion newRotation = Quaternion.LookRotation(playerDirection);
+            transform.rotation = newRotation;
+            boss.SetDestination(gameManager.instance.player.transform.position);
+
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            agent.SetDestination(gameManager.instance.player.transform.position);
+
         }
+
     }
     IEnumerator flashDamage()
     {
@@ -202,12 +233,11 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     }
     public void physics(Vector3 dir)
     {
-        agent.velocity += dir / 3;
+        boss.velocity += dir / 3;
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-
         {
             playerInRange = true;
         }
@@ -217,14 +247,15 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            Destroy(currentWeapon);
+            boss.stoppingDistance = 0;
         }
     }
-    IEnumerator Deadenemy()
+    public IEnumerator Deadenemy()
     {
-
         yield return new WaitForSeconds(3.0f);
         Destroy(gameObject);
     }
+
 }
+
 

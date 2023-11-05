@@ -1,15 +1,15 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
+public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent ballShooter;
+    [SerializeField] NavMeshAgent guard;
     [SerializeField] Animator animate;
-    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
 
@@ -17,14 +17,19 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     [Range(0, 30)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
+    [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
     [SerializeField] float animSpeed;
+    [SerializeField] float attackAnimDelay;
 
     [Header("----- Weapon Stats -----")]
+    [SerializeField] GameObject bat;
+    [SerializeField] Transform batHand;
     [SerializeField] float attackRate;
+    [SerializeField] float attackRange;
+    [SerializeField] int batDamageAmount;
     [SerializeField] int attackAngle;
-    [SerializeField] GameObject baseball;
 
     Vector3 playerDir;
     Vector3 pushBack;
@@ -36,43 +41,56 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     Vector3 startingPos;
     Transform playerTransform;
     float origSpeed;
-
+    GameObject currentBat;
+    public playerController playerController;
+    bool isAlerted;
+    
     //private bool isDefeated = false;
 
     void Start()
     {
         startingPos = transform.position;
-        stoppingDistOrig = ballShooter.stoppingDistance;
+        stoppingDistOrig = guard.stoppingDistance;
 
 
         playerTransform = gameManager.instance.player.transform;
 
-        gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
-        if (ballShooter.isActiveAndEnabled)
+        //if (!isDefeated)
         {
-            float agentVel = ballShooter.velocity.normalized.magnitude;
-
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
-
-            if (playerInRange && canViewPlayer())
+            if (guard.isActiveAndEnabled)
             {
-                StartCoroutine(attack());
-            }
-            else
-            {
-                StartCoroutine(wander());
+                float agentVel = guard.velocity.normalized.magnitude;
+
+                animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
+
+                if (playerInRange && canViewPlayer())
+                {
+                    animate.SetTrigger("Run");
+                    float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+                    if (distanceToPlayer <= attackRange && !isAttacking)
+                    {
+                        animate.SetTrigger("Attack");
+                        StartCoroutine(meleeAttack());
+                    }
+                }
+                else
+                {
+                    animate.ResetTrigger("Run");
+                    StartCoroutine(wander());
+                }
             }
         }
     }
     IEnumerator wander()
     {
-        if (ballShooter.remainingDistance < 0.05f && !wanderDestination)
+        if (guard.remainingDistance < 0.05f && !wanderDestination)
         {
             wanderDestination = true;
-            ballShooter.stoppingDistance = 0;
+            guard.stoppingDistance = 0;
             yield return new WaitForSeconds(wanderTime);
 
             Vector3 randomPos = Random.insideUnitSphere * wanderDist;
@@ -80,88 +98,104 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
 
             NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, wanderDist, 1);
-            ballShooter.SetDestination(hit.position);
+            guard.SetDestination(hit.position);
 
             wanderDestination = false;
         }
     }
     bool canViewPlayer()
     {
-        //Boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
         //#if (UNITY_EDITOR)
         //        Debug.Log(angleToPlayer);
         //        Debug.DrawRay(headPos.position, playerDir);
         //#endif
+        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
+
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
-                ballShooter.stoppingDistance = stoppingDistOrig;
-                ballShooter.SetDestination(gameManager.instance.player.transform.position);
+                guard.stoppingDistance = stoppingDistOrig;
+                guard.SetDestination(gameManager.instance.player.transform.position);
 
-                if (ballShooter.remainingDistance <= ballShooter.stoppingDistance)
+                if (guard.remainingDistance <= guard.stoppingDistance)
                 {
                     faceTarget();
 
                     if (!isAttacking && angleToPlayer <= attackAngle)
                     {
-                        StartCoroutine(attack());
+                        StartCoroutine(meleeAttack());
                     }
+                }
+                if(!isAlerted)
+                {
+                    enemyAlertSystem.instance.AlertEnemies
+                        (gameManager.instance.player.transform.position);
+                    isAlerted = true;
                 }
                 return true;
             }
         }
-        ballShooter.stoppingDistance = 0;
+        guard.stoppingDistance = 0;
         return false;
     }
     public void Alert(Vector3 playerPos)
     {
-        ballShooter.SetDestination(playerPos);
-        StartCoroutine(attack());
+        guard.SetDestination(playerPos);
+        StartCoroutine(meleeAttack());
     }
-    IEnumerator attack()
+    IEnumerator meleeAttack()
     {
-        while (playerInRange)
+        //if (isDefeated) yield break;
+        if (!isAttacking)
         {
             isAttacking = true;
             animate.SetTrigger("Attack");
-            yield return new WaitForSeconds(attackRate);
+
+            yield return new WaitForSeconds(attackAnimDelay);
+
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            if (distanceToPlayer <= attackRange)
+            {
+                playerController player = playerTransform.GetComponent<playerController>();
+
+                if (player != null)
+                {
+                    player.takeDamage(batDamageAmount);
+                }
+            }
+            isAttacking = false;
         }
-        isAttacking = false;
     }
 
     //public bool IsDefeated
-    //{ get { return isDefeated; } }
+    //{
+    //    get { return isDefeated; }
+    //}
     public void takeDamage(int amount)
     {
         HP -= amount;
+        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            ballShooter.enabled = false;
+            //isDefeated = true;
+            guard.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
         }
         else
         {
+            Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            ballShooter.SetDestination(gameManager.instance.player.transform.position);
+            guard.SetDestination(gameManager.instance.player.transform.position);
+            enemyAlertSystem.instance.AlertEnemies(gameManager.instance.player.transform.position);
         }
-    }
-    IEnumerator stopMoving()
-    {
-        ballShooter.speed = 0;
-        yield return new WaitForSeconds(0.1f);
-        ballShooter.speed = origSpeed;
-    }
-    public void createBaseball()
-    {
-        Instantiate(baseball, attackPos.position, transform.rotation);
     }
     IEnumerator flashDamage()
     {
@@ -176,12 +210,12 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     }
     public void physics(Vector3 dir)
     {
-        ballShooter.velocity += dir / 3;
+        guard.velocity += dir / 3;
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")
-            )
+        if (other.CompareTag("Player"))
+
         {
             playerInRange = true;
         }
@@ -191,6 +225,7 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            Destroy(currentBat);
         }
     }
     IEnumerator Deadenemy()
@@ -200,4 +235,5 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
         Destroy(gameObject);
     }
 }
+
 

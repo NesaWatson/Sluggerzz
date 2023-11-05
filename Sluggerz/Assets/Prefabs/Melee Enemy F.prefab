@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 3981762283313160649}
   - component: {fileID: 6938429107689822610}
   m_Layer: 7
-  m_Name: enemyAI
+  m_Name: Melee Enemy F
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1058,7 @@ Transform:
   m_GameObject: {fileID: 4137927964320195765}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: 2.55, y: 0.02, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1097,16 +1097,15 @@ MonoBehaviour:
   viewDistance: 180
   wanderDist: 50
   wanderTime: 30
-  animSpeed: 2
+  animSpeed: 3.37
   attackAnimDelay: 1
-  retreatDist: 0
   weapon: {fileID: 205853607196983398}
   weaponHand: {fileID: 4002704638495579499}
   attackRate: 1
-  attackRange: 3
+  attackRange: 7
   weaponDamageAmount: 1
   attackAngle: 10
-  playerController: {fileID: 0}
+  playerController: {fileID: 2276365819544467521, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
 --- !u!95 &3350287430823529646
 Animator:
   serializedVersion: 5
@@ -1169,7 +1168,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

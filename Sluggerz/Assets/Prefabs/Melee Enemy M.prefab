@@ -2741,7 +2741,7 @@ GameObject:
   - component: {fileID: 7501681085038599679}
   - component: {fileID: 7323982883282568367}
   m_Layer: 7
-  m_Name: Male 1
+  m_Name: Melee Enemy M
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2796,16 +2796,15 @@ MonoBehaviour:
   viewDistance: 180
   wanderDist: 50
   wanderTime: 50
-  animSpeed: 3
-  attackAnimDelay: 0
-  retreatDist: 0
+  animSpeed: 2
+  attackAnimDelay: 1
   weapon: {fileID: 1716765515505348095}
   weaponHand: {fileID: 2431452219691712554}
   attackRate: 1
-  attackRange: 2
-  weaponDamageAmount: 2
+  attackRange: 5
+  weaponDamageAmount: 1
   attackAngle: 10
-  playerController: {fileID: 0}
+  playerController: {fileID: 2276365819544467521, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
 --- !u!95 &8667270586388860178
 Animator:
   serializedVersion: 5
@@ -2816,7 +2815,7 @@ Animator:
   m_GameObject: {fileID: 8651870088688545375}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6ff98783d10689e4199627949324d20f, type: 3}
-  m_Controller: {fileID: 9100000, guid: db461dcbcc19bf5429ddbd4a5ff52c24, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1354ad87b2098d34caa7656e87a9c37c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2846,7 +2845,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

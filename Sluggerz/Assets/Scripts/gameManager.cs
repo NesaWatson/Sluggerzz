@@ -73,14 +73,14 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        enemiesRemaining += amount;
+        //enemiesRemaining += amount;
 
-        enemiesRemainingText.text = enemiesRemaining.ToString("0");
+        //enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0)
-        {
-            StartCoroutine(youWin());
-        }
+        //if (enemiesRemaining <= 0)
+        //{
+        //    StartCoroutine(youWin());
+        //}
     }
     public IEnumerator youWin()
     {
