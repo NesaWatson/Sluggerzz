@@ -47,7 +47,7 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
 
         playerTransform = gameManager.instance.player.transform;
 
-        gameManager.instance.updateGameGoal(1);
+        //gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
