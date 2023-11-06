@@ -2786,11 +2786,11 @@ MonoBehaviour:
   model: {fileID: 1003176438443538746}
   agent: {fileID: 7501681085038599679}
   animate: {fileID: 8667270586388860178}
-  headPos: {fileID: 0}
+  headPos: {fileID: 6284588432355380628}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  HP: 30
+  HP: 5
   targetFaceSpeed: 30
   viewAngle: 180
   viewDistance: 180
@@ -2804,7 +2804,7 @@ MonoBehaviour:
   attackRange: 5
   weaponDamageAmount: 1
   attackAngle: 10
-  playerController: {fileID: 2276365819544467521, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
+  playerController: {fileID: 0}
 --- !u!95 &8667270586388860178
 Animator:
   serializedVersion: 5

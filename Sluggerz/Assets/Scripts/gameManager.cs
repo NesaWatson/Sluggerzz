@@ -9,6 +9,7 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
     public weaponStats weaponStats;
+    public bossEnemy boss;
 
     public GameObject player;
     public GameObject enemy;
@@ -44,6 +45,8 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+
+        boss = FindObjectOfType<bossEnemy>();
     }
 
     void Update()
@@ -73,14 +76,14 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        //enemiesRemaining += amount;
+        enemiesRemaining += amount;
 
-        //enemiesRemainingText.text = enemiesRemaining.ToString("0");
+        enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        //if (enemiesRemaining <= 0)
-        //{
-        //    StartCoroutine(youWin());
-        //}
+        if (enemiesRemaining <= 0 & boss == null)
+        {
+            StartCoroutine(youWin());
+        }
     }
     public IEnumerator youWin()
     {
@@ -166,4 +169,13 @@ public class gameManager : MonoBehaviour
             playerScript.AddWeapon(gunName, gunAmmo);
         }
     }
+    //public void respawnPlayer()
+    //{
+    //    player.SetActive(false);
+    //    player.transform.position = playerSpawnPos.transform.position;
+    //    playerScript.SetPlayerHP(playerScript.HPOrig);
+    //    player.SetActive(true);
+        
+      
+    //}
 }

@@ -410,7 +410,10 @@ MonoBehaviour:
   animate: {fileID: 4652039492566499153}
   attackPos: {fileID: 1980655427158676711}
   headPos: {fileID: 9008693690058286807}
-  HP: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  HP: 10
   targetFaceSpeed: 15
   viewAngle: 180
   wanderDist: 15

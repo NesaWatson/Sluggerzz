@@ -48,7 +48,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
 
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance);
 
         movement();
         selectWeapon();

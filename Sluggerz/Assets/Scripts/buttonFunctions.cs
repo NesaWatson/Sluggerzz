@@ -27,5 +27,11 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpause();
         gameManager.instance.playerScript.spawnPlayer();
     }
+    //public void tryAgain()
+    //{
+    //    gameManager.instance.LoadPlayerState();
+    //    gameManager.instance.respawnPlayer();
+    //    gameManager.instance.stateUnpause();
+    //}
 }
 

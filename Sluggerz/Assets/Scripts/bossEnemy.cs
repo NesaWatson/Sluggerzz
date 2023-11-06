@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class bossEnemy : MonoBehaviour, iDamage, iPhysics
 {
+    private gameManager gameManager;
+
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent boss;
@@ -52,8 +54,8 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
         startingPos = transform.position;
         stoppingDistOrig = boss.stoppingDistance;
 
-
         playerTransform = gameManager.instance.player.transform;
+        gameManager = gameManager.instance;
 
         gameManager.instance.updateGameGoal(1);
     }
@@ -197,7 +199,6 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     {
         HP -= amount;
 
-        //StartCoroutine(stopMoving());
 
         if (HP <= 0)
         {
@@ -205,6 +206,8 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
             animate.SetBool("Death", true);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
+
+            gameManager.youWin();
         }
         else
         {

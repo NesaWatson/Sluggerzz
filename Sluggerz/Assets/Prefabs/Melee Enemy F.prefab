@@ -1091,7 +1091,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  HP: 30
+  HP: 5
   targetFaceSpeed: 30
   viewAngle: 180
   viewDistance: 180
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   attackRange: 7
   weaponDamageAmount: 1
   attackAngle: 10
-  playerController: {fileID: 2276365819544467521, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
+  playerController: {fileID: 0}
 --- !u!95 &3350287430823529646
 Animator:
   serializedVersion: 5

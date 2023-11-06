@@ -1931,7 +1931,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  HP: 30
+  HP: 15
   targetFaceSpeed: 30
   viewAngle: 180
   viewDistance: 50
