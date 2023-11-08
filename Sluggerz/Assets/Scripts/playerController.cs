@@ -201,9 +201,9 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     {
         weaponList.Add(weapon);
 
-        shootDamage = weapon.attackDamage;
-        shootDistance = weapon.attackDistance;
-        shootRate = weapon.attackRate;
+        shootDamage = weapon.gunDamage;
+        shootDistance = weapon.fireDistance;
+        shootRate = weapon.shootSpeed;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<Renderer>().sharedMaterial = weapon.model.GetComponent<Renderer>().sharedMaterial;
@@ -226,9 +226,9 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     void changeWeapon()
     {
-        shootDamage = weaponList[selectedWeapon].attackDamage;
-        shootDistance = weaponList[selectedWeapon].attackDistance;
-        shootRate = weaponList[selectedWeapon].attackRate;
+        shootDamage = weaponList[selectedWeapon].gunDamage;
+        shootDistance = weaponList[selectedWeapon].fireDistance;
+        shootRate = weaponList[selectedWeapon].shootSpeed;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<Renderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<Renderer>().sharedMaterial;

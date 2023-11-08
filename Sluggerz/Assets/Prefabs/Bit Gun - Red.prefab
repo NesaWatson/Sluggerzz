@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6851748636716286757}
   - component: {fileID: 8673503318273764799}
   - component: {fileID: 4535894705929843747}
-  - component: {fileID: 7357338329073631635}
   - component: {fileID: 1690223278424206140}
   - component: {fileID: 7465665124494334937}
   m_Layer: 0
@@ -49,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66510a16e72f6d441894f107b412ea05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: a33f184f193722f44ad6e4c3fb4db4db, type: 2}
+  weapon: {fileID: 11400000, guid: 7787863d58e142e43a9a16ce56cc35f5, type: 2}
 --- !u!33 &8673503318273764799
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -100,27 +99,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7357338329073631635
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6920627016260234254}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 47debd9033d666b41bbadf28db4af725, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!135 &1690223278424206140
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 26803775382542685}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.49400017, y: 0, z: 75.610016}
+  m_LocalPosition: {x: -0.4940003, y: 0.009000015, z: 75.61003}
   m_LocalScale: {x: 149.99997, y: 1, z: 0.0066666654}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,8 +121,8 @@ GameObject:
   m_Name: Scene Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &8780889077055315953
 Transform:
@@ -133,8 +133,8 @@ Transform:
   m_GameObject: {fileID: 3216267308854322138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -74.41, y: 24.9, z: 0.5}
-  m_LocalScale: {x: 150, y: 50, z: 1}
+  m_LocalPosition: {x: -74.41, y: 49.8, z: 0.5}
+  m_LocalScale: {x: 150, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3158923364767846554}
@@ -241,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 3839720949552174798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 149.41002}
+  m_LocalPosition: {x: 0, y: 0.005, z: 149.41005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 5300053919071409807}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.50799996, y: 0, z: 75.610016}
+  m_LocalPosition: {x: 0.5080001, y: 0.005, z: 75.61003}
   m_LocalScale: {x: 149.99997, y: 1, z: 0.0066666654}
   m_ConstrainProportionsScale: 0
   m_Children: []
