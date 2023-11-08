@@ -206,8 +206,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
             animate.SetBool("Death", true);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
-
-            gameManager.youWin();
+            gameManager.instance.youWin();
         }
         else
         {

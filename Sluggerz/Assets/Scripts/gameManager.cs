@@ -12,7 +12,6 @@ public class gameManager : MonoBehaviour
     public bossEnemy boss;
 
     public GameObject player;
-    public GameObject enemy;
     public playerController playerScript;
 
     [SerializeField] GameObject activeMenu;
@@ -32,9 +31,9 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] public TMP_Text ammoText;
 
-    [SerializeField] TMP_Text enemiesRemainingText;
+    [SerializeField] TMP_Text bossRemainingText;
 
-    [SerializeField] int enemiesRemaining;
+    [SerializeField] int bossRemaining;
 
 
     public bool isPaused;
@@ -76,11 +75,11 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        enemiesRemaining += amount;
+        bossRemaining += amount;
 
-        enemiesRemainingText.text = enemiesRemaining.ToString("0");
+        bossRemainingText.text = bossRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0 && boss == null)
+        if (boss == null)
         {
             StartCoroutine(youWin());
         }

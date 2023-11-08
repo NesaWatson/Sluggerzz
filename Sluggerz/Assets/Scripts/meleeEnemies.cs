@@ -43,7 +43,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     Transform playerTransform;
     float origSpeed;
     GameObject currentWeapon;
-    public playerController playerController;
+    //playerController playerController;
     //private bool isDefeated = false;
 
     void Start()

@@ -710,6 +710,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5035596639533445416, guid: b507ef7be2e48fc438105979d0256f30, type: 3}
+      propertyPath: wanderTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035596639533445416, guid: b507ef7be2e48fc438105979d0256f30, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 682032574}
@@ -2311,6 +2315,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3368987416636479051, guid: 4c3dd1f658b2a8d4b86669f200866a96, type: 3}
+      propertyPath: m_text
+      value: 'Boss Remaining:'
+      objectReference: {fileID: 0}
     - target: {fileID: 4286250279442425868, guid: 4c3dd1f658b2a8d4b86669f200866a96, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2399,6 +2407,10 @@ PrefabInstance:
       propertyPath: checkPointMenu
       value: 
       objectReference: {fileID: 1680396861}
+    - target: {fileID: 4603327893434028414, guid: 4c3dd1f658b2a8d4b86669f200866a96, type: 3}
+      propertyPath: bossRemainingText
+      value: 
+      objectReference: {fileID: 1287113498}
     - target: {fileID: 4603327893434028414, guid: 4c3dd1f658b2a8d4b86669f200866a96, type: 3}
       propertyPath: enemiesRemainingText
       value: 
