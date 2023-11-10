@@ -79,14 +79,16 @@ public class gameManager : MonoBehaviour
 
         bossRemainingText.text = bossRemaining.ToString("0");
 
-        if (boss == null)
+        Debug.Log("Boss: " + boss);
+
+        if (bossRemaining <= 0)
         {
             StartCoroutine(youWin());
         }
     }
     public IEnumerator youWin()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         statePause();
         activeMenu = winMenu;
         activeMenu.SetActive(isPaused);

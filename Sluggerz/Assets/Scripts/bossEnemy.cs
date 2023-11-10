@@ -45,7 +45,6 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     Vector3 startingPos;
     Transform playerTransform;
     float origSpeed;
-    bool isAlerted;
     bool canSeePlayer;
     float lastTeleportTime;
 
@@ -57,7 +56,6 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
         playerTransform = gameManager.instance.player.transform;
         gameManager = gameManager.instance;
 
-        gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
@@ -204,6 +202,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
         {
             boss.enabled = false;
             animate.SetBool("Death", true);
+            gameManager.instance.updateGameGoal(-1);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
             gameManager.instance.youWin();
