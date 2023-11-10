@@ -140,11 +140,13 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     {
         shield = amount;
         gameManager.instance.enableShield();
+        updatePlayerShield();
     }
     public void giveStamina(int amount)
     {
         StartCoroutine(activateStamina(amount, durationInSecs));
         gameManager.instance.enableStamina();
+        updatePlayerStamina();
     }
     IEnumerator activateStamina(float speedMultiplier, float duration)
     {

@@ -114,6 +114,7 @@ public class gameManager : MonoBehaviour
         {
             shieldUI.SetActive(true);
         }
+      
     }
     public void enableStamina()
     {
@@ -121,6 +122,7 @@ public class gameManager : MonoBehaviour
         {
             staminaUI.SetActive(true);
         }
+       
 
     }
     //public void updateAmmoUI(int currentAmmo, int maxAmmo)
