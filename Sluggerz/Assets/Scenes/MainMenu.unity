@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: af2a35866ce610a44aebd2f1d51f41c7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.26349986, g: 0.3399011, b: 0.4237339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -366,6 +366,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1971817913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8870993591728058572, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
+  m_PrefabInstance: {fileID: 2913090403249898220}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1cfa2d2b2f1a124f8e864e8db99bae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2913090403249898220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,6 +392,14 @@ PrefabInstance:
     - target: {fileID: 1152936712566119830, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -351
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376327696898780705, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1971817913}
+    - target: {fileID: 1376327696898780705, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadCredits
       objectReference: {fileID: 0}
     - target: {fileID: 1787235240233620385, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
       propertyPath: m_Name
@@ -473,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 3328477746438668048, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -170
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467893702680982415, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

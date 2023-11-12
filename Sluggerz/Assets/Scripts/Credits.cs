@@ -1,67 +1,149 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Text;
+using System;
 using UnityEngine.UI;
-using System.Xml;
-using System.IO;
-using UnityEngine.SceneManagement;
 
 public class Credits : MonoBehaviour
 {
-    public Text titleText;
-    public Text subtitleText;
-    public Text contributorsText;
-    public Text assetsText;
-    public Text musicSfxText;
-    public Text thanksText;
+    public bool play;
+    public int playDelay;
+    public RectTransform textTrans;
+    public Text text;
+    public TextAsset creditsCSV;
 
-    public TextAsset creditsData;
+    public float lineHeight;
+    public float yDistance;
+    public float scrollSpeed;
+    public int maxLines;
 
+    private WaitForSeconds delayWords;
+    private float y;
+    private Vector2 startPoint;
+    private int linesDisplayed;
 
-    void Start()
+    private string[][] credits;
+    private StringBuilder sb;
+
+    public const string Column = " - ";
+    public const string Row = "\n";
+
+    private bool creditsFinished;
+
+    public Button mainMenuButton;
+    public Button playAgainButton;
+    public Button quitButton;
+
+    public void Start()
     {
-        string data = creditsData.text;
-        loadCredits(data);
+        delayWords = new WaitForSeconds(playDelay);
+        startPoint = textTrans.anchoredPosition;
+
+        sb = new StringBuilder();
+        text.text = "";
+
+        textTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, maxLines * lineHeight);
+
+        string csvContent = creditsCSV.text.Replace("<br>", "\n");
+
+        string[] creditLines = creditsCSV.text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        credits = new string[creditLines.Length][];
+
+        for (int n = 0; n < creditLines.Length; n++)
+        {
+            credits[n] = creditLines[n].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+        }
+
+        StartCoroutine(playCredits());
     }
-
-    void loadCredits(string xmlData)
+    public void Update()
     {
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(xmlData);
-
-        XmlNode creditsNode = xmlDoc.SelectSingleNode("credits");
-        titleText.text = creditsNode.SelectSingleNode("title").InnerText;
-        subtitleText.text = creditsNode.SelectSingleNode("subtitle").InnerText;
-
-        XmlNode sectionNode = creditsNode.SelectSingleNode("section");
-        XmlNode contributorsNode = sectionNode.SelectSingleNode("subsection[title='Contributors']");
-        contributorsText.text = "";
-        XmlNodeList contributorNodes = contributorsNode.SelectNodes("contributor");
-        foreach (XmlNode contributorNode in contributorNodes)
+        if (!play)
         {
-            contributorsText.text += contributorNode.InnerText + "\n";
+            return;
         }
+        y += Time.deltaTime * scrollSpeed;
 
-        XmlNode assetsNode = sectionNode.SelectSingleNode("subsection[title='Assets']");
-        assetsText.text = "";
-        XmlNodeList assetNodes = assetsNode.SelectNodes("asset");
-        foreach (XmlNode assetNode in assetNodes)
+        while (y >= yDistance)
         {
-            string assetName = assetNode.SelectSingleNode("name").InnerText;
-            string assetURL = assetNode.SelectSingleNode("url").InnerText;
-            assetsText.text += assetName + "\n" + assetURL + "\n\n";
-        }
+            linesDisplayed++;
 
-        XmlNode musicSfxNode = sectionNode.SelectSingleNode("subsection[title='Music/SFX']");
-        musicSfxText.text = "";
-        XmlNodeList audioNodes = musicSfxNode.SelectNodes("audio");
-        foreach (XmlNode audioNode in audioNodes)
+            if (linesDisplayed <= credits.Length)
+            {
+                linesInText();
+            }
+            else
+            {
+                play = false;
+                CreditsFinished();
+            }
+
+            y -= yDistance;
+        }
+        textTrans.anchoredPosition = startPoint + new Vector2(0, y);
+    }
+    private void CreditsFinished()
+    {
+       EnableButtons();
+    }
+    private void EnableButtons()
+    {
+        mainMenuButton.interactable = true;
+        playAgainButton.interactable = true;
+        quitButton.interactable = true;
+    }
+    public void linesInText()
+    {
+        sb.Length = 0;
+
+        int rowIndex = Mathf.Max(0, linesDisplayed - maxLines);
+
+        int rowCount = Mathf.Min(linesDisplayed, maxLines, credits.Length - linesDisplayed - 1);
+
+        for (int n = 0; n < rowCount; n++)
         {
-            string audioName = audioNode.SelectSingleNode("name").InnerText;
-            string audioURL = audioNode.SelectSingleNode("url").InnerText;
-            musicSfxText.text += audioName + "\n" + audioURL + "\n\n";
-        }
 
-        thanksText.text = creditsNode.SelectSingleNode("thanks").InnerText;
+            for (int i = 0; i < credits[rowIndex].Length; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append(Column);
+                }
+                sb.Append(credits[rowIndex][i]);
+            }
+            rowIndex++;
+
+            if (n < rowCount - 1)
+            {
+                sb.Append(Row);
+            }
+        }
+        text.text = sb.ToString();
+    }
+    private IEnumerator playCredits()
+    {
+        yield return new WaitForSeconds(playDelay);
+
+        play = true;
+    }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("Campaign Mode");
+    }
+    public void Quitgame()
+    {
+        Application.Quit();
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+            StartCoroutine(playCredits());
     }
 }
