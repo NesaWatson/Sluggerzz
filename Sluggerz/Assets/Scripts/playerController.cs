@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(1, 20)][SerializeField] public int HP;
+    [Range(1, 10)][SerializeField] public int HP;
     [Range(3, 10)][SerializeField] float playerSpeed;
     [Range(8, 25)][SerializeField] float jumpHeight;
     [Range(1, 3)][SerializeField] int jumpsMax;
@@ -138,6 +138,23 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void giveShield(int amount)
     {
+        //int remainingShield = Mathf.Max(0, shield - amount);
+        //int damageTaken = amount - (shield - remainingShield);
+
+        //shield = remainingShield;
+        //if (damageTaken > 0)
+        //{
+        //    StartCoroutine(gameManager.instance.playerFlashDamage());
+        //    updatePlayerShield();
+
+        //    takeDamage(damageTaken);
+        //}
+        //else
+        //{
+        //    updatePlayerShield() ;
+        //}
+        //gameManager.instance.disableShield();
+        amount = shieldOrig;
         shield = amount;
         gameManager.instance.enableShield();
         updatePlayerShield();
@@ -155,6 +172,8 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
 
         yield return new WaitForSeconds(duration);
         playerSpeed = speedOrig;
+        gameManager.instance.disableStamina();
+        updatePlayerStamina();
     }
     public void takeDamage(int amount)
     {
@@ -166,6 +185,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         }
         else
         {
+            gameManager.instance.disableShield();
             HP -= amount;
             StartCoroutine(gameManager.instance.playerFlashDamage());
             updatePlayerHP();
@@ -194,6 +214,10 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     {
         gameManager.instance.playerShieldBar.fillAmount = (float)shield / shieldOrig;
 
+        if(shield <= 0)
+        {
+            gameManager.instance.disableShield();
+        }
     }
     public void updatePlayerStamina()
     {

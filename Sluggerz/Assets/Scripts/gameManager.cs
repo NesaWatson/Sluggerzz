@@ -35,6 +35,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] int bossRemaining;
 
+    private int durationInSecs;
 
     public bool isPaused;
 
@@ -104,9 +105,6 @@ public class gameManager : MonoBehaviour
         playerDamageFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         playerDamageFlash.SetActive(false);
-
-        //float fillAmount = (float)playerScript.HP / playerScript.HPOrig;
-        //gameManager.instance.playerHPBar.fillAmount = fillAmount;
     }
     public void enableShield()
     {
@@ -114,7 +112,13 @@ public class gameManager : MonoBehaviour
         {
             shieldUI.SetActive(true);
         }
-      
+    }
+    public void disableShield()
+    {
+        if(shieldUI != null)
+        {
+            shieldUI.SetActive(false);
+        }
     }
     public void enableStamina()
     {
@@ -122,8 +126,13 @@ public class gameManager : MonoBehaviour
         {
             staminaUI.SetActive(true);
         }
-       
-
+    }
+    public void disableStamina()
+    {
+        if (staminaUI != null)
+        {
+            staminaUI.SetActive(false);
+        }
     }
     //public void updateAmmoUI(int currentAmmo, int maxAmmo)
     //{
@@ -172,13 +181,4 @@ public class gameManager : MonoBehaviour
             playerScript.AddWeapon(gunName, gunAmmo);
         }
     }
-    //public void respawnPlayer()
-    //{
-    //    player.SetActive(false);
-    //    player.transform.position = playerSpawnPos.transform.position;
-    //    playerScript.SetPlayerHP(playerScript.HPOrig);
-    //    player.SetActive(true);
-        
-      
-    //}
 }
