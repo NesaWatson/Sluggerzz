@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-   public void LoadCampaignMode()
+   public void LoadGame()
    {
-        SceneManager.LoadScene("Campaign Mode");
+        SceneManager.LoadScene("Tutorial Scene");
    }
    public void LoadSurvivalMode()
    {
@@ -17,4 +17,8 @@ public class MainMenu : MonoBehaviour
    {
         Application.Quit();
    }
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }

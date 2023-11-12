@@ -50,10 +50,10 @@ public class tutorialManager : MonoBehaviour
     }
     public void startMainMenu()
     {
-        SceneManager.LoadScene("Campaign Mode");
+        SceneManager.LoadScene("Tutorial Scene");
     }
     public void exitToMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 }
