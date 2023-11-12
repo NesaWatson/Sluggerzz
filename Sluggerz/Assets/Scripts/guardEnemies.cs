@@ -45,7 +45,6 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
     public playerController playerController;
     bool isAlerted;
     
-    //private bool isDefeated = false;
 
     void Start()
     {
@@ -58,7 +57,6 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
     }
     void Update()
     {
-        //if (!isDefeated)
         {
             if (guard.isActiveAndEnabled)
             {
@@ -107,11 +105,7 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        //#if (UNITY_EDITOR)
-        //        Debug.Log(angleToPlayer);
-        //        Debug.DrawRay(headPos.position, playerDir);
-        //#endif
-        //Debug.DrawRay(headPos.position, playerDir, Color.red);
+       
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
@@ -149,7 +143,6 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
     }
     IEnumerator meleeAttack()
     {
-        //if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -171,18 +164,12 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
         }
     }
 
-    //public bool IsDefeated
-    //{
-    //    get { return isDefeated; }
-    //}
     public void takeDamage(int amount)
     {
         HP -= amount;
-        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            //isDefeated = true;
             guard.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();

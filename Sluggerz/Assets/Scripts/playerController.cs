@@ -48,8 +48,6 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
 
     void Update()
     {
-        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance);
-
         movement();
         selectWeapon();
 
@@ -61,7 +59,6 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public void PlayerCheckpointRefresh()
     {
         HP = HPOrig;
-        //AmmoRefill();
         updatePlayerHP();
 
     }
@@ -95,7 +92,6 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move((playerVelocity + pushBack) * Time.deltaTime);
 
-        //pushBack = Vector3.zero;
     }
     IEnumerator shoot()
     {
@@ -104,23 +100,11 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
         {
-            Debug.Log("Hit: " + hit.transform.name);
-
             iDamage damageable = hit.collider.GetComponent<iDamage>();
             if (damageable != null && hit.transform != transform)
             {
-                Debug.Log("Damaging: " + hit.transform.name);
                 damageable.takeDamage(shootDamage);
             }
-            else
-            {
-                Debug.Log("No damageable object found.");
-            }
-
-        }
-        else
-        {
-            Debug.Log("Raycast didn't hit anything.");
         }
 
         yield return new WaitForSeconds(shootRate);
@@ -138,22 +122,6 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void giveShield(int amount)
     {
-        //int remainingShield = Mathf.Max(0, shield - amount);
-        //int damageTaken = amount - (shield - remainingShield);
-
-        //shield = remainingShield;
-        //if (damageTaken > 0)
-        //{
-        //    StartCoroutine(gameManager.instance.playerFlashDamage());
-        //    updatePlayerShield();
-
-        //    takeDamage(damageTaken);
-        //}
-        //else
-        //{
-        //    updatePlayerShield() ;
-        //}
-        //gameManager.instance.disableShield();
         amount = shieldOrig;
         shield = amount;
         gameManager.instance.enableShield();

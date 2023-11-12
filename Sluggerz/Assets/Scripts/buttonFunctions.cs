@@ -18,20 +18,10 @@ public class buttonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
-    //public void givePlayerHP(int amount)
-    //{
-    //    gameManager.instance.playerScript.giveHP(amount);
-    //}
     public void respawnPlayer()
     {
         gameManager.instance.stateUnpause();
         gameManager.instance.playerScript.spawnPlayer();
     }
-    //public void tryAgain()
-    //{
-    //    gameManager.instance.LoadPlayerState();
-    //    gameManager.instance.respawnPlayer();
-    //    gameManager.instance.stateUnpause();
-    //}
 }
 

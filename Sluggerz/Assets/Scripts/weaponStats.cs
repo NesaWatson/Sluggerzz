@@ -9,8 +9,6 @@ public class weaponStats : ScriptableObject
     public float shootSpeed; 
     public int gunDamage;
     public int fireDistance;
-    //public int ammoCurr; 
-    //public int ammoMax;
 
     public GameObject model;
     public string weaponName;

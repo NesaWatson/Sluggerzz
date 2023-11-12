@@ -80,8 +80,6 @@ public class gameManager : MonoBehaviour
 
         bossRemainingText.text = bossRemaining.ToString("0");
 
-        Debug.Log("Boss: " + boss);
-
         if (bossRemaining <= 0)
         {
             StartCoroutine(youWin());
@@ -134,13 +132,6 @@ public class gameManager : MonoBehaviour
             staminaUI.SetActive(false);
         }
     }
-    //public void updateAmmoUI(int currentAmmo, int maxAmmo)
-    //{
-    //    weaponStats.ammoCurr = currentAmmo;
-    //    weaponStats.ammoMax = maxAmmo;
-
-    //    ammoText.text = $"{currentAmmo}/{maxAmmo}";
-    //}
     public IEnumerator checkPointPopup()
     {
         checkPointMenu.SetActive(true);

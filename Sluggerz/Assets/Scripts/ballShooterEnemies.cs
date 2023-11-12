@@ -37,7 +37,6 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     Transform playerTransform;
     float origSpeed;
 
-    //private bool isDefeated = false;
 
     void Start()
     {
@@ -47,7 +46,6 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
 
         playerTransform = gameManager.instance.player.transform;
 
-        //gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
@@ -87,13 +85,9 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
     }
     bool canViewPlayer()
     {
-        //Boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        //#if (UNITY_EDITOR)
-        //        Debug.Log(angleToPlayer);
-        //        Debug.DrawRay(headPos.position, playerDir);
-        //#endif
+       
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -132,9 +126,6 @@ public class ballShooterEnemies : MonoBehaviour, iDamage, iPhysics
         }
         isAttacking = false;
     }
-
-    //public bool IsDefeated
-    //{ get { return isDefeated; } }
     public void takeDamage(int amount)
     {
         HP -= amount;

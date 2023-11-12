@@ -43,8 +43,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     Transform playerTransform;
     float origSpeed;
     GameObject currentWeapon;
-    //playerController playerController;
-    //private bool isDefeated = false;
+    
 
     void Start()
     {
@@ -59,8 +58,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     void Update()
     {
 
-        //if (!isDefeated)
-        //{
+        
         if (agent.isActiveAndEnabled)
         {
             float agentVel = agent.velocity.normalized.magnitude;
@@ -84,7 +82,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
                 StartCoroutine(wander());
             }
         }
-        //}
+        
     }
     IEnumerator wander()
     {
@@ -108,11 +106,7 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        //#if (UNITY_EDITOR)
-        //        Debug.Log(angleToPlayer);
-        //        Debug.DrawRay(headPos.position, playerDir);
-        //#endif
-        //Debug.DrawRay(headPos.position, playerDir, Color.red);
+        
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
@@ -144,7 +138,6 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
     }
     IEnumerator meleeAttack()
     {
-        //if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -165,18 +158,12 @@ public class meleeEnemies : MonoBehaviour, iDamage, iPhysics, iAlertable
             isAttacking = false;
         }
     }
-
-    //public bool IsDefeated
-    //{
-    //    get { return isDefeated; }
-    //}
     public void takeDamage(int amount)
     {
         HP -= amount;
 
         if (HP <= 0)
         {
-            //isDefeated = true;
             agent.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();
