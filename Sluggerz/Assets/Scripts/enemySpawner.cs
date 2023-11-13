@@ -4,22 +4,42 @@ using UnityEngine;
 
 public class enemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public Transform spawnPoint;
-    public float waveTimer = 10f;
+    [SerializeField] GameObject[] enemyPrefab;
+    [SerializeField] float spawnInterval;
+    [SerializeField] int maxEnemies;
 
-    void Start()
+    [SerializeField] int currentEnemyCount;
+    [SerializeField] float spawnRadius;
+
+
+    private float spawnTimer;
+    void Update()
     {
-        StartCoroutine(spawnWaves());
-    }
-    
-    IEnumerator spawnWaves()
-    {
-        while (true)
+        if (currentEnemyCount < maxEnemies)
         {
-            yield return new WaitForSeconds(waveTimer);
-
-            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            spawnTimer -= Time.deltaTime;
+            if (spawnTimer <= 0)
+            {
+                spawnEnemy();
+                spawnTimer = spawnInterval;
+            }
         }
+    }
+    void spawnEnemy()
+    {
+        int randomIndex = Random.Range(0, enemyPrefab.Length);
+        GameObject selectedEnemyPrefab = enemyPrefab[randomIndex];
+
+        Vector3 randomSpawnPosition = transform.position + Random.insideUnitSphere * spawnRadius; ;
+        randomSpawnPosition.y = 0;
+
+        GameObject enemy = Instantiate(selectedEnemyPrefab, randomSpawnPosition, Quaternion.identity);
+
+        currentEnemyCount++;
+
+    }
+    public void EnemyDestroyed()
+    {
+        currentEnemyCount--;
     }
 }

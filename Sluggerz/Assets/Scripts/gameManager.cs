@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -171,5 +172,13 @@ public class gameManager : MonoBehaviour
 
             playerScript.AddWeapon(gunName, gunAmmo);
         }
+    }
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

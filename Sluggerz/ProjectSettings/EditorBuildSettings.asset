@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 1caf470d3c8d273408e38ae17333bb8b
+  - enabled: 1
+    path: Assets/Scenes/Survival Mode.unity
+    guid: 0b69ff11a299a0548994bcf54ab0fb77
   m_configObjects: {}

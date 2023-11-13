@@ -47,6 +47,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     float origSpeed;
     bool canSeePlayer;
     float lastTeleportTime;
+    public playerController playerController;
 
     void Start()
     {
@@ -142,31 +143,38 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
         boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-  
+
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
-                boss.stoppingDistance = stoppingDistOrig;
-
-                boss.SetDestination(gameManager.instance.player.transform.position);
-
-                if (boss.remainingDistance <= boss.stoppingDistance)
+                // Use a sphere cast to check for visibility
+                if (Physics.SphereCast(headPos.position, 0.5f, playerDir, out hit, Mathf.Infinity, playerLayer))
                 {
-                    faceTarget();
-
-                    if (!isAttacking && angleToPlayer <= attackAngle)
+                    if (hit.collider.CompareTag("Player"))
                     {
-                        StartCoroutine(meleeAttack());
+                        boss.stoppingDistance = stoppingDistOrig;
+                        boss.SetDestination(gameManager.instance.player.transform.position);
+
+                        if (boss.remainingDistance <= boss.stoppingDistance)
+                        {
+                            faceTarget();
+
+                            if (!isAttacking && angleToPlayer <= attackAngle)
+                            {
+                                StartCoroutine(meleeAttack());
+                            }
+                        }
+                        return true;
                     }
                 }
-                return true;
             }
         }
         boss.stoppingDistance = 0;
         return false;
     }
+
     IEnumerator meleeAttack()
     {
         //if (isDefeated) yield break;

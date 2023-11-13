@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6676f46c9f602be48851c1b0979b4e34, type: 3}
   m_Name: Purple Gun Stats
   m_EditorClassIdentifier: 
-  shootSpeed: 0
-  gunDamage: 0
-  fireDistance: 0
-  model: {fileID: 0}
+  shootSpeed: 0.3
+  gunDamage: 5
+  fireDistance: 50
+  model: {fileID: 9038534794450905476, guid: ce0bf43a1160af64aa6e9f998e0809e8, type: 3}
   weaponName: Bit Gun - Purple
   hitEffect: {fileID: 0}
   shootSound: {fileID: 0}

@@ -2416,7 +2416,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  HP: 10
+  HP: 15
   targetFaceSpeed: 30
   viewAngle: 180
   wanderDist: 15

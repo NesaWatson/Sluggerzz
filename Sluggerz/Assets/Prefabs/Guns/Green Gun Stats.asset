@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6676f46c9f602be48851c1b0979b4e34, type: 3}
   m_Name: Green Gun Stats
   m_EditorClassIdentifier: 
-  shootSpeed: 0
-  gunDamage: 0
-  fireDistance: 0
+  shootSpeed: 1.5
+  gunDamage: 8
+  fireDistance: 100
   model: {fileID: 0}
   weaponName: Bit Gun - Green
   hitEffect: {fileID: 0}

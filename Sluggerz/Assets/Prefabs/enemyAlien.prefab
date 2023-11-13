@@ -583,20 +583,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 5466305554982076199}
   agent: {fileID: 3413275329347747717}
-  anim: {fileID: 71089934747009760}
-  shootPos: {fileID: 5278966055252318159}
+  animate: {fileID: 0}
   headPos: {fileID: 3375307977372946289}
-  HP: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  HP: 15
   targetFaceSpeed: 10
   viewAngle: 180
-  roamDist: 15
-  roamPauseTime: 3
+  viewDistance: 0
+  wanderDist: 0
+  wanderTime: 0
   animSpeed: 2
-  shootRate: 5
-  shootAngle: 4
-  bullet: {fileID: 0}
-  speed: 2
-  player: {fileID: 0}
+  attackAnimDelay: 0
+  weapon: {fileID: 0}
+  weaponHand: {fileID: 0}
+  attackRate: 0
+  attackRange: 0
+  weaponDamageAmount: 0
+  attackAngle: 0
 --- !u!95 &71089934747009760
 Animator:
   serializedVersion: 5
