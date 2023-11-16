@@ -15,7 +15,7 @@ MonoBehaviour:
   shootSpeed: 1.5
   gunDamage: 8
   fireDistance: 100
-  model: {fileID: 0}
+  model: {fileID: 5406878703636717337, guid: 17d1f6bbf08d1fd4d81b36b6ac4303c5, type: 3}
   weaponName: Bit Gun - Green
   hitEffect: {fileID: 0}
   shootSound: {fileID: 0}

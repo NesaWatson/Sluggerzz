@@ -49,6 +49,12 @@ public class gameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
 
         boss = FindObjectOfType<bossEnemy>();
+
+        if(boss != null )
+        {
+            bossRemaining = 1;
+            bossRemainingText.text = bossRemaining.ToString("0");
+        }
     }
 
     void Update()
@@ -78,14 +84,15 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
+
         bossRemaining += amount;
-        GameObject[] boss = GameObject.FindGameObjectsWithTag("Boss");
 
         bossRemainingText.text = bossRemaining.ToString("0");
 
         if (bossRemaining <= 0)
         {
             StartCoroutine(youWin());
+            
         }
     }
     public IEnumerator youWin()
@@ -94,6 +101,8 @@ public class gameManager : MonoBehaviour
         statePause();
         activeMenu = winMenu;
         activeMenu.SetActive(isPaused);
+        new WaitForSeconds(1);
+        SceneManager.LoadScene("Credits");
     }
     public void youLose()
     {

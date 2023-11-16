@@ -6,13 +6,22 @@ public class teleporter : MonoBehaviour
 {
     public Transform player, Des;
     public GameObject players;
+    public guardEnemy guard;
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && guard == null)
         {
-            players.SetActive(false);
-            player.position = Des.position;
-            players.SetActive(true);
+            if(guard == null || !guard.gameObject.activeSelf)
+            {
+                players.SetActive(false);
+                player.position = Des.position;
+                players.SetActive(true);
+            }
+            
         }
+    }
+    public void UpdateGuardReference(guardEnemy newGuard)
+    {
+        guard = newGuard;
     }
 }

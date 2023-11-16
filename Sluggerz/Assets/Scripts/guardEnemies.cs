@@ -53,6 +53,7 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
 
 
         playerTransform = gameManager.instance.player.transform;
+        FindObjectOfType<teleporter>()?.UpdateGuardReference(this);
 
     }
     void Update()
@@ -180,8 +181,8 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
             Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            guard.SetDestination(gameManager.instance.player.transform.position);
             enemyAlertSystem.instance.AlertEnemies(gameManager.instance.player.transform.position);
+            guard.SetDestination(gameManager.instance.player.transform.position);
         }
     }
     IEnumerator flashDamage()
@@ -219,6 +220,8 @@ public class guardEnemy : MonoBehaviour, iDamage, iPhysics, iAlertable
     {
 
         yield return new WaitForSeconds(3.0f);
+        FindObjectOfType<teleporter>()?.UpdateGuardReference(null);
+
         Destroy(gameObject);
     }
 }
