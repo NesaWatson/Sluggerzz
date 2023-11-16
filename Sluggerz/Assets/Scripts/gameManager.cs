@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
+    public tutorialManager tutorialManager;
     public weaponStats weaponStats;
     public bossEnemy boss;
 
@@ -78,6 +79,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         bossRemaining += amount;
+        GameObject[] boss = GameObject.FindGameObjectsWithTag("Boss");
 
         bossRemainingText.text = bossRemaining.ToString("0");
 

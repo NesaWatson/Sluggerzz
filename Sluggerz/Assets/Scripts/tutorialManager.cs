@@ -11,53 +11,67 @@ public class tutorialManager : MonoBehaviour
     public Text tutCompleteMessage;
     public GameObject teleporter;
     public playerController player;
-    public int amount;
+    public weaponPickup weaponPickup;
 
-    private int currentStep = 1;
+    private int currentStep;
     bool tutorialCompleted;
     public int enemiesRemaining;
     [SerializeField] public TMP_Text enemiesRemainingText;
 
-
-
     void Start()
     {
-        ShowTutorialMessage("Step 1: Pick up the weapon");
+        currentStep = 1;
+        UpdateTutorialSteps(currentStep);
     }
 
     void Update()
     {
-        if (enemiesDefeated() && !tutorialCompleted)
+        if (!tutorialCompleted)
         {
             if (currentStep == 1)
             {
-                ShowTutorialCompletedMessage();
-                ShowTeleporterPrompt();
-                ShowTutorialMessage("Step 2: Defeat the enemies");
-                currentStep++;
+                ShowTutorialMessage("Step 1: Pick up the weapon");
+                if(weaponPickup != null)
+                {
+                    currentStep++;
+                }
             }
             else if (currentStep == 2)
             {
+                ShowTutorialMessage("Step 2: Defeat the enemies");
+                if(enemiesDefeated())
+                {
+                    currentStep++;
+                }
+            }
+            else if (currentStep == 3)
+            {
                 ShowTutorialCompletedMessage();
                 ShowTeleporterPrompt();
-                ShowTutorialMessage("Tutorial complete!\nFind the teleporter to continue");
-                currentStep++;
+                ShowTutorialMessage("\nFind the teleporter to continue");
             }
+            
         }
     }
-
+    public void UpdateTutorialSteps(int newStep)
+    {
+        currentStep = newStep;
+    }
     bool enemiesDefeated()
     {
-        enemiesRemaining += amount;
+        enemiesRemaining = 0;
 
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            if(enemy.activeSelf)
+            {
+                enemiesRemaining++;
+            }
+        }
         enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0)
-        {
-            ShowTutorialCompletedMessage();
-            return true;
-        }
-        return false;
+        return enemiesRemaining <= 0;
     }
 
     public void ShowTutorialMessage(string message)

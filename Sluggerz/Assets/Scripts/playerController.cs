@@ -116,7 +116,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void giveHP(int amount)
     {
-        amount = HPOrig;
+        HPOrig += amount;
         HP += amount;
         updatePlayerHP();
     }

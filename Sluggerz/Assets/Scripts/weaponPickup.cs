@@ -5,10 +5,11 @@ using UnityEngine;
 public class weaponPickup : MonoBehaviour
 {
     [SerializeField] weaponStats weapon;
+    tutorialManager tutorialManager;
 
     void Start()
     {
-        
+        tutorialManager = FindObjectOfType<tutorialManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class weaponPickup : MonoBehaviour
         {
             gameManager.instance.playerScript.weaponPickup(weapon);
             Destroy(gameObject);
+            tutorialManager.UpdateTutorialSteps(2);
         }
     }
 
