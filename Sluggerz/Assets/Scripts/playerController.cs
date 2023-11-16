@@ -116,8 +116,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void giveHP(int amount)
     {
-        HPOrig += amount;
-        HP += amount;
+        HPOrig = amount;
         updatePlayerHP();
     }
     public void giveShield(int amount)
@@ -167,7 +166,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public void spawnPlayer()
     {
         gameManager.instance.LoadPlayerState();
-        HP = HPOrig;
+        SetPlayerHP(HP);
         updatePlayerHP();
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -235,6 +234,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     public void SetPlayerHP(int hp)
     {
         HPOrig = hp;
+        hp = HP;
     }
     public WeaponRuntimeData GetPlayerGun(int index)
     {

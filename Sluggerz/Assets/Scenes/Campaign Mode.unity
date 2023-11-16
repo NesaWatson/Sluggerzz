@@ -793,6 +793,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5334360205097388623, guid: 1341954911b134646adc3bfa5b221ad5, type: 3}
+      propertyPath: HP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334360205097388623, guid: 1341954911b134646adc3bfa5b221ad5, type: 3}
+      propertyPath: HPOrig
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

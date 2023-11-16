@@ -255,7 +255,7 @@ MonoBehaviour:
   shootDamage: 0
   shootDistance: 0
   isShooting: 0
-  HPOrig: 0
+  HPOrig: 10
   shieldOrig: 10
   shield: 0
   stamina: 0

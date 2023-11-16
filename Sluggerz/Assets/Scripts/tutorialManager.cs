@@ -10,8 +10,9 @@ public class tutorialManager : MonoBehaviour
     public Text tutorialMessage;
     public Text tutCompleteMessage;
     public GameObject teleporter;
-    public playerController player;
+    public gameManager gameManager;
     public weaponPickup weaponPickup;
+   
 
     private int currentStep;
     bool tutorialCompleted;

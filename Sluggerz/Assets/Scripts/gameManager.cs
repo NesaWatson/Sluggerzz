@@ -119,6 +119,7 @@ public class gameManager : MonoBehaviour
         if(shieldUI != null)
         {
             shieldUI.SetActive(false);
+            playerScript.shield = 0;
         }
     }
     public void enableStamina()
@@ -156,7 +157,6 @@ public class gameManager : MonoBehaviour
             {
                 PlayerPrefs.SetString($"Gun_Type_{i}", weapon.config.weaponName);
                 PlayerPrefs.SetInt($"Gun_Ammo_{i}", weapon.ammoCur);
-
             }
         }
     }

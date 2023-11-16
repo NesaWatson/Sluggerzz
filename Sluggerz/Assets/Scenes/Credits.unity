@@ -385,6 +385,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3268126366760740406, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 893.9493
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268126366760740406, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 87.02533
+      objectReference: {fileID: 0}
     - target: {fileID: 4567709456931912973, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
       propertyPath: m_Name
       value: Credits UI
@@ -468,6 +476,34 @@ PrefabInstance:
     - target: {fileID: 7799270244579611572, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761306353060787536, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: maxLines
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761306353060787536, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: playDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761306353060787536, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: yDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761306353060787536, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: lineHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761306353060787536, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: scrollSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814878233403309160, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1613.8071
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814878233403309160, guid: bb81176abfb27af4a8126031cfbb8512, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 182
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
