@@ -101,7 +101,7 @@ public class gameManager : MonoBehaviour
         statePause();
         activeMenu = winMenu;
         activeMenu.SetActive(isPaused);
-        new WaitForSeconds(1);
+        new WaitForSeconds(3);
         SceneManager.LoadScene("Credits");
     }
     public void youLose()
