@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class bossEnemy : MonoBehaviour, iDamage, iPhysics
 {
@@ -210,7 +211,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
             gameManager.instance.updateGameGoal(-1);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
-            gameManager.instance.youWin();
+            
         }
         else
         {

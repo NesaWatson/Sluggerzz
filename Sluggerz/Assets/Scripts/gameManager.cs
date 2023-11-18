@@ -12,6 +12,7 @@ public class gameManager : MonoBehaviour
     public tutorialManager tutorialManager;
     public weaponStats weaponStats;
     public bossEnemy boss;
+    public SurvivalModeManager survivalModeManager;
 
     public GameObject player;
     public playerController playerScript;
@@ -98,11 +99,20 @@ public class gameManager : MonoBehaviour
     public IEnumerator youWin()
     {
         yield return new WaitForSeconds(1);
-        statePause();
-        activeMenu = winMenu;
-        activeMenu.SetActive(isPaused);
-        new WaitForSeconds(3);
-        SceneManager.LoadScene("Credits");
+        if(SceneManager.GetActiveScene().name == "Survival Mode" && survivalModeManager.timerEnded)
+        {
+            statePause();
+            activeMenu = winMenu;
+            activeMenu.SetActive(isPaused);
+        }
+        else if(SceneManager.GetActiveScene().name == "Campaign")
+        {
+            statePause();
+            activeMenu = winMenu;
+            activeMenu.SetActive(isPaused);
+            new WaitForSeconds(5);
+            SceneManager.LoadScene("Credits");
+        }
     }
     public void youLose()
     {

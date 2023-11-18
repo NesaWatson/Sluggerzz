@@ -121,8 +121,8 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void giveShield(int amount)
     {
-        amount = shieldOrig;
         shield = amount;
+        shieldOrig = amount;
         gameManager.instance.enableShield();
         updatePlayerShield();
     }

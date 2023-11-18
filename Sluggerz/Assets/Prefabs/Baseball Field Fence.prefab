@@ -1894,7 +1894,7 @@ Transform:
   m_GameObject: {fileID: 3938234090272078919}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.91, y: 1.05, z: -6.96}
+  m_LocalPosition: {x: -7.92, y: 1.05, z: -5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2272,6 +2272,7 @@ GameObject:
   - component: {fileID: 1092804047024548629}
   - component: {fileID: 8892965692609140254}
   - component: {fileID: 8005678947723896099}
+  - component: {fileID: 2185426290735190461}
   m_Layer: 0
   m_Name: chainlink_LOD0
   m_TagString: Untagged
@@ -2288,7 +2289,7 @@ Transform:
   m_GameObject: {fileID: 5026808094913560315}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.125903, y: 1.0469947, z: -0.005580752}
+  m_LocalPosition: {x: -4.13, y: 1.0469947, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2344,6 +2345,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2185426290735190461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026808094913560315}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8389554, y: 0.16678208, z: 2.104652}
+  m_Center: {x: 4.141562, y: 0.05130433, z: 0.00000005960463}
 --- !u!1 &5186750603254408459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3470,7 @@ Transform:
   m_GameObject: {fileID: 6703621747784312384}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.91, y: 1.05, z: -6.96}
+  m_LocalPosition: {x: -7.92, y: 1.05, z: -5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3598,6 +3620,7 @@ GameObject:
   - component: {fileID: 297024575646861709}
   - component: {fileID: 7109460643699215377}
   - component: {fileID: 5286999298204887838}
+  - component: {fileID: 772350598045749115}
   m_Layer: 0
   m_Name: chainlink_group-3_LOD0
   m_TagString: Untagged
@@ -3614,7 +3637,7 @@ Transform:
   m_GameObject: {fileID: 7031350625194534925}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -2.71, y: 1.05, z: -9.52}
+  m_LocalPosition: {x: -1.5444193, y: 1.05, z: -9.514195}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3670,6 +3693,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &772350598045749115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031350625194534925}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5977817, y: 0.20468073, z: 2.1046515}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7059172173153495648
 GameObject:
   m_ObjectHideFlags: 0

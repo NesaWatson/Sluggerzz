@@ -3144,7 +3144,7 @@ GameObject:
   m_Name: Car3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2482899227138717253
@@ -4055,7 +4055,7 @@ GameObject:
   m_Name: Bench_prefab (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3977108094601355595
@@ -10775,8 +10775,8 @@ GameObject:
   m_Name: Door_in
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &8232778651983626943
 Transform:
@@ -10786,7 +10786,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885542231277869106}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000002384185, y: -0.00000011920925, z: -0.7149092, w: 0.6992173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.005112447, y: 0.0046907114, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10794,7 +10794,7 @@ Transform:
   - {fileID: 1067406054644319755}
   - {fileID: 3960847923131203220}
   m_Father: {fileID: 6790797072014041315}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -91.272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5039017670332580440
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10883,7 +10883,7 @@ GameObject:
   m_Name: Bench_prefab (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &9070345029531096231
@@ -11513,7 +11513,7 @@ Transform:
   m_GameObject: {fileID: 941354291860106548}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 13.632569, y: 13.771719, z: -18.15395}
+  m_LocalPosition: {x: 13.632569, y: 13.4, z: -18.15395}
   m_LocalScale: {x: 100, y: 100, z: 45}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11809,8 +11809,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &4709439085319289754
 Transform:
@@ -15818,7 +15818,7 @@ GameObject:
   m_Name: Lamps_parkingGarageFloor_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1207490625734752757
@@ -16198,7 +16198,7 @@ GameObject:
   m_Name: tree_prefab (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &413376021069692532
@@ -17192,7 +17192,7 @@ GameObject:
   m_Name: Bench_prefab (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5027082454935800648
@@ -19952,7 +19952,7 @@ GameObject:
   m_Name: Lamps_parkingGarageFloor_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6779857605071406256
@@ -20133,8 +20133,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &3658388989155649320
 Transform:
@@ -22466,8 +22466,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &5513731996490582732
 Transform:
@@ -23850,8 +23850,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &3285397289084116731
 Transform:
@@ -25645,7 +25645,7 @@ GameObject:
   m_Name: tree_prefab (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6315429708991675109
@@ -28007,7 +28007,7 @@ GameObject:
   m_Name: Bench_prefab (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8004494164465716174
@@ -28039,7 +28039,7 @@ GameObject:
   m_Name: Bench_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8676704873882836607
@@ -30915,7 +30915,7 @@ GameObject:
   m_Name: Bench_prefab (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5880765151528584097
@@ -34771,7 +34771,7 @@ GameObject:
   m_Name: Car2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7858322609315795463
@@ -35128,7 +35128,7 @@ GameObject:
   m_Name: tree_prefab (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &589339307551083711
@@ -37964,7 +37964,7 @@ GameObject:
   m_Name: Bench_prefab (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7345976964436977736
@@ -39266,7 +39266,7 @@ GameObject:
   m_Name: tree_prefab (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &599540115720482974
@@ -40135,8 +40135,8 @@ GameObject:
   m_Name: Car-8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &3808111659388093674
 Transform:
@@ -42889,7 +42889,7 @@ GameObject:
   m_Name: tree_prefab (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3494695686205057335
@@ -43819,7 +43819,7 @@ GameObject:
   m_Name: tree_prefab (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8987559399443661928
@@ -46407,7 +46407,7 @@ GameObject:
   m_Name: Bench_prefab (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8595053972264627042
@@ -47112,7 +47112,7 @@ GameObject:
   m_Name: tree_prefab (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7762227933850054764
@@ -49577,7 +49577,7 @@ GameObject:
   m_Name: tree_prefab (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4573172455976101162
@@ -50649,8 +50649,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &6977276455299285047
 Transform:
@@ -50754,7 +50754,7 @@ GameObject:
   m_Name: tree_prefab (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7448376829530085189
@@ -53400,8 +53400,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &6810370566031409209
 Transform:
@@ -55349,7 +55349,7 @@ GameObject:
   m_Name: tree_prefab (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2444802655770259291
@@ -57104,7 +57104,7 @@ GameObject:
   m_Name: Bench_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4903187380513182175
@@ -60033,7 +60033,7 @@ GameObject:
   m_Name: Car4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2812535485052052255
@@ -63241,7 +63241,7 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7447746188841559409
@@ -63253,8 +63253,8 @@ Transform:
   m_GameObject: {fileID: 4763148065144012883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.227, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 6.07, z: 0}
+  m_LocalScale: {x: 1, y: 0.56723607, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7850530334700769148}
@@ -64082,7 +64082,7 @@ GameObject:
   m_Name: tree_prefab (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1838399061462579032
@@ -69683,7 +69683,7 @@ GameObject:
   m_Name: Car7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5935949573280197508
@@ -71400,7 +71400,7 @@ GameObject:
   m_Name: Bench_prefab (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6918278045307414378
@@ -72895,7 +72895,7 @@ GameObject:
   m_Name: Tree_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8339335453011525986
@@ -72907,7 +72907,7 @@ Transform:
   m_GameObject: {fileID: 5514103700320580040}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.227, z: 0}
+  m_LocalPosition: {x: 0, y: -0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -77629,7 +77629,7 @@ GameObject:
   m_Name: tree_prefab (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2540186783499968286
@@ -79114,7 +79114,7 @@ GameObject:
   m_Name: StreetLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3457032442203933021
@@ -80288,7 +80288,7 @@ GameObject:
   m_Name: Bench_prefab (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8731546473119728206
@@ -80436,7 +80436,7 @@ GameObject:
   m_Name: tree_prefab (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5853702707596162717
@@ -81600,7 +81600,7 @@ GameObject:
   m_Name: Bench_prefab (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &335564862783875115
@@ -82945,7 +82945,7 @@ GameObject:
   m_Name: tree_prefab (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8490049717096866101
@@ -84228,8 +84228,8 @@ GameObject:
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &4396359354806570472
 Transform:
@@ -85801,8 +85801,8 @@ GameObject:
   m_Name: Car-3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &3295599376463731200
 Transform:
@@ -87243,7 +87243,7 @@ GameObject:
   m_Name: tree_prefab (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5834193323071352742
@@ -88345,7 +88345,7 @@ GameObject:
   m_Name: Signs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1927757043612032061
@@ -93113,7 +93113,7 @@ GameObject:
   m_Name: Car6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5941197300131219489
@@ -94320,7 +94320,7 @@ GameObject:
   m_Name: Car6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1829317066556533732
@@ -96123,7 +96123,7 @@ GameObject:
   m_Name: Bushes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2904585098912335559
@@ -96773,7 +96773,7 @@ GameObject:
   m_Name: tree_prefab (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7655443783395463225
@@ -97630,7 +97630,7 @@ GameObject:
   m_Name: Bench_prefab (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2121143716236988352
@@ -98964,7 +98964,7 @@ GameObject:
   m_Name: Bench_prefab (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6153931970458323863
@@ -99778,7 +99778,7 @@ GameObject:
   m_Name: tree_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4741686226808995482
@@ -103702,7 +103702,7 @@ GameObject:
   m_Name: tree_prefab (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6920319274820279958
@@ -106982,7 +106982,7 @@ GameObject:
   m_Name: tree_prefab (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5346638900407048177
@@ -107108,7 +107108,7 @@ GameObject:
   m_Name: Car5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7720225413835728008
@@ -107400,8 +107400,8 @@ GameObject:
   m_Name: Door_in
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &1050861746482042175
 Transform:
@@ -107411,7 +107411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8016155601344586830}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00000014901158, y: -0.00000005960463, z: -0.71786964, w: 0.69617754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.005112447, y: 0.0046907114, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107419,7 +107419,7 @@ Transform:
   - {fileID: 270524021381669178}
   - {fileID: 916181741960178120}
   m_Father: {fileID: 4986258432059983998}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -91.758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4966154461372390252
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108071,7 +108071,7 @@ GameObject:
   m_Name: tree_prefab (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7663886293985405958
@@ -110037,7 +110037,7 @@ GameObject:
   m_Name: tree_prefab (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1716393181210303735
@@ -111429,8 +111429,8 @@ GameObject:
   m_Name: Door_in
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &2140058821228975594
 Transform:
@@ -111440,7 +111440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8442864012118186683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000002384185, y: -0.00000011920925, z: -0.7149092, w: 0.6992173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.005112447, y: 0.0046907114, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -111448,7 +111448,7 @@ Transform:
   - {fileID: 7099563710900028842}
   - {fileID: 3604950735323929210}
   m_Father: {fileID: 6835159070585093373}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -91.272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6984348417420198725
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -111537,7 +111537,7 @@ GameObject:
   m_Name: Bench_prefab (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8259274358447255817
@@ -114428,7 +114428,7 @@ GameObject:
   m_Name: Lamps_parkingGarageFloor_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2495850939921879879
@@ -114547,7 +114547,7 @@ GameObject:
   m_Name: Lamps_parkingGarageFloor_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8754421436396739316
@@ -115313,7 +115313,7 @@ GameObject:
   m_Name: Car8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8073495160062354836
@@ -116812,7 +116812,7 @@ GameObject:
   m_Name: Bench_prefab (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7850530334700769148
@@ -117066,7 +117066,7 @@ GameObject:
   m_Name: Bench_prefab (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2103408673776905211
@@ -117217,8 +117217,8 @@ GameObject:
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &4536957051356491376
 Transform:
@@ -118352,7 +118352,7 @@ GameObject:
   m_Name: Machines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5980997940722162537
@@ -118749,7 +118749,7 @@ GameObject:
   m_Name: Car1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7021258978567616218
@@ -120784,7 +120784,7 @@ GameObject:
   m_Name: Bench_prefab (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6386672772706267845
@@ -121691,7 +121691,7 @@ GameObject:
   m_Name: Bench_prefab (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3010698172742809301

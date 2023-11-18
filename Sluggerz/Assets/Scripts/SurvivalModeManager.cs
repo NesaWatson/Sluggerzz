@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class SurvivalModeManager : MonoBehaviour
 {
-   public float survivalTime;
+    public float survivalTime;
+    public float origTime;
     public GameObject winMenu;
     public GameObject loseMenu;
     public Text timerText;
 
-   private float currentTime;
+    private float currentTime;
+    public bool timerEnded = false;
 
     private void Start()
     {
@@ -31,16 +33,22 @@ public class SurvivalModeManager : MonoBehaviour
 
             if(currentTime <=0)
             {
+                timerEnded = true;
                 EndGame(true); 
             }
         }
+    }
+    public void resetTimer()
+    {
+        currentTime = origTime; 
+        timerEnded = false;
+        StartCoroutine(countdown());
     }
     private void updateTimerUI()
     {
         if(timerText != null)
         {
             timerText.text = FormatTime(currentTime);
-
         }
         string FormatTime(float timeInSeconds)
         {
@@ -57,6 +65,7 @@ public class SurvivalModeManager : MonoBehaviour
     {
         if (playerWins)
         {
+            timerEnded = true;
             StopAllCoroutines();
             if (winMenu != null)
             {
@@ -65,6 +74,7 @@ public class SurvivalModeManager : MonoBehaviour
         }
         else
         {
+            timerEnded= false;
             StopAllCoroutines();
             if (loseMenu != null)
             {
@@ -72,4 +82,5 @@ public class SurvivalModeManager : MonoBehaviour
             }
         }
     }
+
 }
