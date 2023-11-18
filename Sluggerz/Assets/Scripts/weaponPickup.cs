@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class weaponPickup : MonoBehaviour
 {
@@ -17,7 +18,11 @@ public class weaponPickup : MonoBehaviour
         {
             gameManager.instance.playerScript.weaponPickup(weapon);
             Destroy(gameObject);
-            tutorialManager.UpdateTutorialSteps(2);
+
+            if (SceneManager.GetActiveScene().name == "Tutorial Scene")
+            { 
+                tutorialManager.UpdateTutorialSteps(2); 
+            }
         }
     }
 
