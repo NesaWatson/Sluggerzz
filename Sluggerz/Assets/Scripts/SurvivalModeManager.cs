@@ -69,6 +69,7 @@ public class SurvivalModeManager : MonoBehaviour
             StopAllCoroutines();
             if (winMenu != null)
             {
+                StopAllCoroutines();
                 winMenu.SetActive(true);
             }
         }
