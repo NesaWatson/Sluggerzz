@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-   public void LoadGame()
+    public void LoadGame()
    {
         SceneManager.LoadScene("Tutorial Scene");
    }

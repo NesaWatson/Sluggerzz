@@ -105,12 +105,12 @@ public class gameManager : MonoBehaviour
             activeMenu = winMenu;
             activeMenu.SetActive(isPaused);
         }
-        else if(SceneManager.GetActiveScene().name == "Campaign")
+        else if(SceneManager.GetActiveScene().name == "Campaign Mode")
         {
             statePause();
             activeMenu = winMenu;
             activeMenu.SetActive(isPaused);
-            new WaitForSeconds(5);
+            new WaitForSeconds(10);
             SceneManager.LoadScene("Credits");
         }
     }

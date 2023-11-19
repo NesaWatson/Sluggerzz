@@ -18,4 +18,4 @@ MonoBehaviour:
   model: {fileID: 5406878703636717337, guid: 17d1f6bbf08d1fd4d81b36b6ac4303c5, type: 3}
   weaponName: Bit Gun - Green
   hitEffect: {fileID: 0}
-  shootSound: {fileID: 0}
+  weaponAudio: {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}

@@ -78,12 +78,20 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
-            if (playerInRange && !canViewPlayer())
+            if (playerInRange && canViewPlayer())
             {
-                StartCoroutine(wander());
+                animate.SetTrigger("Run");
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+                if (distanceToPlayer <= attackRange && !isAttacking)
+                {
+                    animate.SetTrigger("Attack");
+                    StartCoroutine(meleeAttack());
+                }
             }
-            else if (!playerInRange)
+            else
             {
+                animate.ResetTrigger("Run");
                 StartCoroutine(wander());
             }
         }
@@ -121,7 +129,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     }
     IEnumerator wander()
     {
-        if (boss.remainingDistance < 0.05f && !wanderDestination)
+        if (boss.remainingDistance < 0.05f && !wanderDestination && canViewPlayer())
         {
             wanderDestination = true;
             boss.stoppingDistance = 0;
@@ -211,7 +219,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
             gameManager.instance.updateGameGoal(-1);
             StopAllCoroutines();
             StartCoroutine(Deadenemy());
-            
+            gameManager.instance.youWin();
         }
         else
         {

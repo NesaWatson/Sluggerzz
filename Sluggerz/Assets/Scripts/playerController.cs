@@ -106,7 +106,10 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
                 damageable.takeDamage(shootDamage);
             }
         }
-
+        if (weaponList[selectedWeapon].weaponAudio != null)
+        {
+            AudioSource.PlayClipAtPoint(weaponList[selectedWeapon].weaponAudio, hit.point);
+        }
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }

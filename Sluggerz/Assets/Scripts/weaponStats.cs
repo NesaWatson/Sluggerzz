@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu]
 
@@ -13,5 +14,6 @@ public class weaponStats : ScriptableObject
     public GameObject model;
     public string weaponName;
     public ParticleSystem hitEffect;
-    public AudioClip shootSound; 
+    public AudioClip weaponAudio;
+   
 }

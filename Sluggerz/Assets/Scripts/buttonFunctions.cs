@@ -24,6 +24,7 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpause();
         gameManager.instance.playerScript.spawnPlayer();
         gameManager.instance.playerScript.refillHP();
+        gameManager.instance.playerScript.HP = 10;
         gameManager.instance.playerScript.updatePlayerHP();
         SurvivalModeManager.resetTimer();
     }

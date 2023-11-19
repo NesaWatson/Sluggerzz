@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6676f46c9f602be48851c1b0979b4e34, type: 3}
   m_Name: Gold Gun Stats
   m_EditorClassIdentifier: 
-  shootSpeed: 1.5
-  gunDamage: 8
+  shootSpeed: 0.5
+  gunDamage: 20
   fireDistance: 100
-  model: {fileID: 5406878703636717337, guid: 17d1f6bbf08d1fd4d81b36b6ac4303c5, type: 3}
-  weaponName: Bit Gun - Green
+  model: {fileID: 860940741844771893, guid: e36f6ef425cf6d845b40dc88f716d145, type: 3}
+  weaponName: Bit Gun - Gold
   hitEffect: {fileID: 0}
   shootSound: {fileID: 0}
