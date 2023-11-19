@@ -7,6 +7,7 @@ public class teleporter : MonoBehaviour
     public Transform player, Des;
     public GameObject players;
     public guardEnemy guard;
+    public AudioClip audioClip;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && guard == null)

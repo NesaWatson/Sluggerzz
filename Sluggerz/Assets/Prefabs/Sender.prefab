@@ -4891,6 +4891,7 @@ MonoBehaviour:
   Des: {fileID: 0}
   players: {fileID: 0}
   guard: {fileID: 5035596639533445416, guid: b507ef7be2e48fc438105979d0256f30, type: 3}
+  audioClip: {fileID: 8300000, guid: 90c01eb17104c894a97859f7d6ca64eb, type: 3}
 --- !u!33 &4743984284851871733
 MeshFilter:
   m_ObjectHideFlags: 0
