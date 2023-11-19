@@ -56,10 +56,8 @@ public class Credits : MonoBehaviour
             credits[n] = creditLines[n].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         }
-        if(SceneManager.GetActiveScene().name == "Credits")
-        {
-            StartCoroutine(playCredits());
-        }
+        StartCoroutine(playCredits());
+
     }
     public void Update()
     {
