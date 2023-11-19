@@ -110,7 +110,7 @@ public class gameManager : MonoBehaviour
             statePause();
             activeMenu = winMenu;
             activeMenu.SetActive(isPaused);
-            Time.timeScale = 3;
+            Time.timeScale = 1;
             yield return new WaitForSeconds(5);
             SceneManager.LoadScene("Credits");
         }
