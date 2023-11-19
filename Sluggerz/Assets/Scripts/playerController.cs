@@ -58,8 +58,7 @@ public class playerController : MonoBehaviour, iDamage, iPhysics
     }
     public void PlayerCheckpointRefresh()
     {
-        HP = HPOrig;
-        updatePlayerHP();
+        refillHP();
 
     }
     void movement()

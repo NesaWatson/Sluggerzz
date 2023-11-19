@@ -49,6 +49,7 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     bool canSeePlayer;
     float lastTeleportTime;
     public playerController playerController;
+    bool creditsReadyToLoad = false;
 
     void Start()
     {
@@ -61,6 +62,10 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
     }
     void Update()
     {
+        if (creditsReadyToLoad && Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene("Credits");
+        }
 
         if (boss.isActiveAndEnabled)
         {
@@ -217,7 +222,6 @@ public class bossEnemy : MonoBehaviour, iDamage, iPhysics
             boss.enabled = false;
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
-            StopAllCoroutines();
             StartCoroutine(Deadenemy());
             gameManager.instance.youWin();
         }

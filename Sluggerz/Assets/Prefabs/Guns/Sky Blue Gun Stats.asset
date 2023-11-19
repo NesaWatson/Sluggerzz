@@ -17,5 +17,5 @@ MonoBehaviour:
   fireDistance: 50
   model: {fileID: 860940741844771893, guid: 592d7add219cbd34c86873b39531c6eb, type: 3}
   weaponName: Bit Gun - Sky Blue
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
   weaponAudio: {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}

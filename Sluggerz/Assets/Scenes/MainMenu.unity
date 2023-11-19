@@ -559,6 +559,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4134183696162461344, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
+      propertyPath: m_text
+      value: Survival
+      objectReference: {fileID: 0}
     - target: {fileID: 8870993591728058572, guid: 21e73022a9e11aa4e9f1babb7bc3e5b7, type: 3}
       propertyPath: mainMenuSound
       value: 

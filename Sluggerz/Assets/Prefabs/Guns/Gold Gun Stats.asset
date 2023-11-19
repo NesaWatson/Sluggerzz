@@ -17,5 +17,5 @@ MonoBehaviour:
   fireDistance: 100
   model: {fileID: 860940741844771893, guid: e36f6ef425cf6d845b40dc88f716d145, type: 3}
   weaponName: Bit Gun - Gold
-  hitEffect: {fileID: 0}
-  shootSound: {fileID: 0}
+  hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
+  weaponAudio: {fileID: 0}

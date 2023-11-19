@@ -98,19 +98,20 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator youWin()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         if(SceneManager.GetActiveScene().name == "Survival Mode" && survivalModeManager.timerEnded)
         {
             statePause();
             activeMenu = winMenu;
             activeMenu.SetActive(isPaused);
         }
-        else if(SceneManager.GetActiveScene().name == "Campaign Mode")
+        if (SceneManager.GetActiveScene().name == "Campaign Mode")
         {
             statePause();
             activeMenu = winMenu;
             activeMenu.SetActive(isPaused);
-            new WaitForSeconds(10);
+            Time.timeScale = 3;
+            yield return new WaitForSeconds(5);
             SceneManager.LoadScene("Credits");
         }
     }

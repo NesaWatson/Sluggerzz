@@ -17,5 +17,5 @@ MonoBehaviour:
   fireDistance: 25
   model: {fileID: 6920627016260234254, guid: 809937b1944cfe84e8755cfc9867d571, type: 3}
   weaponName: Bit Gun - Red
-  hitEffect: {fileID: 4713803734431041087, guid: 10a133c8f9362774fa3ceee7d3271331, type: 3}
+  hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
   weaponAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}

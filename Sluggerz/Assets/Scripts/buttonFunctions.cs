@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
-    SurvivalModeManager SurvivalModeManager;
     public void resume()
     {
         gameManager.instance.stateUnpause();
@@ -26,7 +25,6 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.playerScript.refillHP();
         gameManager.instance.playerScript.HP = 10;
         gameManager.instance.playerScript.updatePlayerHP();
-        SurvivalModeManager.resetTimer();
     }
 }
 
